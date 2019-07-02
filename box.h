@@ -15,9 +15,11 @@ class box : public QTextEdit
 public:
     explicit box(QWidget *parent = nullptr);
     ~box();
+    void creatFile();
 
 private:
     Ui::box *ui;
+
 };
 
 #endif // BOX_H

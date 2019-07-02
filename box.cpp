@@ -13,3 +13,11 @@ box::~box()
 {
     delete ui;
 }
+
+void box::creatFile()
+{
+    static int number = 1;
+    QString str = QString("文档%1").arg(number);
+    number++;
+    this->setWindowTitle(str);
+}

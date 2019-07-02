@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered()));   //新建
+    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered(bool)));   //新建
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_saveAs_triggered()));   //另存为
@@ -46,7 +46,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_new_triggered()
 {
+    //creatFile(ui);
     qDebug() << "success";
+    box *newfile = new box;
+    ui->mdiArea->addSubWindow(newfile);
+    newfile->creatFile();
+    newfile->show();
 }
 
 void MainWindow::on_action_open_triggered()
