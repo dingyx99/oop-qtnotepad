@@ -5,6 +5,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <box.h>
+#include <QFileDialog>
 
 namespace Ui {
 class MainWindow;

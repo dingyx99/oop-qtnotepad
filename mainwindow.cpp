@@ -46,8 +46,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_new_triggered()
 {
-    //creatFile(ui);
-    qDebug() << "success";
+    qDebug() << "success1";
     box *newfile = new box;
     ui->mdiArea->addSubWindow(newfile);
     newfile->creatFile();
