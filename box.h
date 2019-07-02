@@ -1,5 +1,6 @@
 #ifndef BOX_H
 #define BOX_H
+#pragma execution_character_set("utf-8")
 
 #include <QWidget>
 #include<QTextEdit>

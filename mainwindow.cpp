@@ -47,15 +47,29 @@ MainWindow::~MainWindow()
 void MainWindow::on_action_new_triggered()
 {
     qDebug() << "success1";
-    box *newfile = new box;
-    ui->mdiArea->addSubWindow(newfile);
-    newfile->creatFile();
+    box *newfile = new box;     //新建窗口
+    ui->mdiArea->addSubWindow(newfile);     //将窗口放在容器内
+    newfile->creatFile();     //设置新建窗口的名称，依次增加
     newfile->show();
 }
 
 void MainWindow::on_action_open_triggered()
 {
+    QString filename = QFileDialog::getOpenFileName(this, QString("open file"),
+                                                    QString("/"), "Text (*.txt)");  //获取文件路径
+    QFile file;
+    file.setFileName(filename);    //文件名称（路径）
+    qDebug() << filename;
+    file.open(QIODevice::ReadOnly | QIODevice::Text);    //以读和写的方式打开文件
+    QByteArray text = file.readAll();     //读文档：ALL
+    QTextCodec *codec = QTextCodec::codecForName("utf-8");    //将读取的文档内容编码格式转为utf-8
+    QString text_utf = codec->toUnicode(text);
 
+    box *newfile = new box;      //新建窗口并将文档写入
+    newfile->setText(text_utf);
+    ui->mdiArea->addSubWindow(newfile);     //将窗口放在容器内
+    newfile->setWindowTitle(filename);     //设置窗口名称为文件名称（路径）
+    newfile->show();
 }
 
 void MainWindow::on_action_save_triggered()
