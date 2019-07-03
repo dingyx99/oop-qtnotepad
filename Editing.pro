@@ -26,11 +26,13 @@ CONFIG += c++11
 
 SOURCES += \
         box.cpp \
+        finddialog.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
         box.h \
+        finddialog.h \
         mainwindow.h
 
 FORMS += \
