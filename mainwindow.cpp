@@ -129,12 +129,12 @@ void MainWindow::on_action_paste_triggered()
 
 void MainWindow::on_action_find_triggered()
 {
-
+    findDia -> show();
 }
 
 void MainWindow::on_action_replace_triggered()
 {
-
+    replaceDia -> show();
 }
 
 void MainWindow::on_action_bold_triggered()
@@ -194,10 +194,10 @@ void MainWindow::on_action_drawCircle_triggered()
 
 void MainWindow::on_action_about_triggered()
 {
-
+    aboutDialog(this).exec();
 }
 
 void MainWindow::on_action_about3rdParty_triggered()
 {
-
+    QMessageBox::aboutQt(nullptr, "关于Qt");
 }

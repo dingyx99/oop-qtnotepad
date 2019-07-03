@@ -1,39 +1,51 @@
 #ifndef FINDDIALOG_H
 #define FINDDIALOG_H
 
-#include<QDialog>
-#include<QCheckBox>
-#include<QLabel>
-#include<QLineEdit>
-#include<QPushButton>
+#include <QDialog>
+#include <QLabel>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QRadioButton>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QEvent>
+#include <QPointer>
+#include <QPlainTextEdit>
+#include <QString>
+#include <QTextCursor>
+#include <QMessageBox>
+#include <QLineEdit>
 
-class QCheckBox;
-class QLabel;
-class QLineEdit;
-class QPushButton;
-
-class findDialog: public QDialog
+class findDialog : public QDialog
 {
     Q_OBJECT
+
 public:
-    findDialog(QWidget * parent = nullptr);
+    findDialog(QWidget *parent = nullptr, QPlainTextEdit *ptext = nullptr);
+    bool event(QEvent *event);
+    void setPlainTextEdit(QPlainTextEdit *ptext);
+    QPlainTextEdit* getPlainTextEdit();
 
-signals:
-    void findNext(const QString & str, Qt::CaseSensitivity cs);
-    void findPrevious(const QString & str, Qt::CaseSensitivity cs);
+protected slots:
+    void onFind();
+    void onCancel();
 
-private slots:
-    void findClicked();
-    void enableFindButton(const QString & text);
+protected:
+    QGridLayout fLayout;
+    QHBoxLayout fHBLayout;
 
-private:
-    QLabel *label;
-    QLineEdit *lineEdit;
-    QCheckBox *caseCheckBox;
-    QCheckBox *backwardCheckBox;
-    QPushButton *findButton;
-    QPushButton *closeButton;
+    QLabel fLabel;
+    QLineEdit fEdit;
+    QPushButton findButton;
+    QPushButton cancelButton;
+    QCheckBox fCheck;
+    QRadioButton forwardRatio;
+    QRadioButton backRatio;
+
+    QGroupBox fRadioGroup;
+
+    QPointer<QPlainTextEdit> fTextEdit;
 };
-
 
 #endif // FINDDIALOG_H

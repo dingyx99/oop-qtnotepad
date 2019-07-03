@@ -9,6 +9,9 @@
 #include <QFile>
 #include <QTextCodec>
 #include <QMessageBox>
+#include "aboutdialog.h"
+#include "finddialog.h"
+#include "replacedialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -81,6 +84,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QSharedPointer<findDialog> findDia;
+    QSharedPointer<replaceDialog> replaceDia;
 };
 
 #endif // MAINWINDOW_H

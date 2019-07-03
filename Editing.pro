@@ -25,15 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        aboutdialog.cpp \
         box.cpp \
         finddialog.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        replacedialog.cpp
 
 HEADERS += \
+        aboutdialog.h \
         box.h \
         finddialog.h \
-        mainwindow.h
+        mainwindow.h \
+        replacedialog.h
 
 FORMS += \
         box.ui \
