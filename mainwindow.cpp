@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_about_triggered()));  //关于
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_about3rdParty_triggered()));  //第三方声明
+
 }
 
 MainWindow::~MainWindow()
@@ -60,9 +61,13 @@ void MainWindow::on_action_open_triggered()
     QFile file;
     file.setFileName(filename);    //文件名称（路径）
     qDebug() << filename;
-    file.open(QIODevice::ReadOnly | QIODevice::Text);    //以读和写的方式打开文件
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::warning(this,"waring","文件未打开");
+        return;
+    }   //以读和写的方式打开文件,
+
     QByteArray text = file.readAll();     //读文档：ALL
-    QTextCodec *codec = QTextCodec::codecForName("utf-8");    //将读取的文档内容编码格式转为utf-8
+    QTextCodec *codec = QTextCodec::codecForName("GBK");    //将读取的文档内容编码格式转为GBK,能够显示中文
     QString text_utf = codec->toUnicode(text);
 
     box *newfile = new box;      //新建窗口并将文档写入

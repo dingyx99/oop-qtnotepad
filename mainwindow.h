@@ -1,6 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#pragma execution_character_set("utf-8")
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
@@ -9,6 +8,7 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QTextCodec>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
