@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/new">
+        <file>images/Bold.png</file>
+        <file>images/BulletsMenu.png</file>
+        <file>images/copy.png</file>
+        <file>images/cut.png</file>
+        <file>images/FileNew.png</file>
+        <file>images/FileOpen.png</file>
+        <file>images/FilePrint.png</file>
+        <file>images/FilePrintPreview.png</file>
+        <file>images/FileSave.png</file>
+        <file>images/FileSaveAs.png</file>
+        <file>images/FindText.png</file>
+        <file>images/FontColorPicker.png</file>
+        <file>images/Italic.png</file>
+        <file>images/Paste.png</file>
+        <file>images/Redo.png</file>
+        <file>images/ReplaceDialog.png</file>
+        <file>images/TextAlignCenter.png</file>
+        <file>images/TextAlignLeft.png</file>
+        <file>images/TextAlignRight.png</file>
+        <file>images/TextAlignWordJustify.png</file>
+        <file>images/Underline.png</file>
+        <file>images/Undo.png</file>
+    </qresource>
+</RCC>
