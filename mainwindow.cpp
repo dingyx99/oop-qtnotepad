@@ -45,6 +45,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+box* MainWindow::activeSubwin(){
+    QMdiSubWindow *subWindow = ui->mdiArea->activeSubWindow();
+    if(subWindow==nullptr){
+        return nullptr;
+    }
+    QWidget *wid = subWindow->widget();
+    if(wid==nullptr){
+        return nullptr;
+    }
+    box *newfile = (box *)wid;
+    if(newfile==nullptr){
+        return nullptr;
+    }
+    return newfile;
+}
+
 void MainWindow::on_action_new_triggered()
 {
     qDebug() << "success1";
@@ -56,15 +72,17 @@ void MainWindow::on_action_new_triggered()
 
 void MainWindow::on_action_open_triggered()
 {
-    QString filename = QFileDialog::getOpenFileName(this, QString("open file"),
+    QString filepath = QFileDialog::getOpenFileName(this, QString("open a file"),
                                                     QString("/"), "Text (*.txt)");  //获取文件路径
     QFile file;
-    file.setFileName(filename);    //文件名称（路径）
-    qDebug() << filename;
+    file.setFileName(filepath);    //设置文件名称（路径）
+    QFileInfo info(filepath);   //通过文档路径获取文档名称
+    QString filename = info.fileName();
+
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QMessageBox::warning(this,"waring","文件未打开");
+        QMessageBox::warning(this,"提示","文件未打开");
         return;
-    }   //以读和写的方式打开文件,
+    }   //以读和写的方式打开文件,若未打开任何文档，则不新建窗口
 
     QByteArray text = file.readAll();     //读文档：ALL
     QTextCodec *codec = QTextCodec::codecForName("GBK");    //将读取的文档内容编码格式转为GBK,能够显示中文
@@ -73,13 +91,24 @@ void MainWindow::on_action_open_triggered()
     box *newfile = new box;      //新建窗口并将文档写入
     newfile->setText(text_utf);
     ui->mdiArea->addSubWindow(newfile);     //将窗口放在容器内
-    newfile->setWindowTitle(filename);     //设置窗口名称为文件名称（路径）
+    newfile->setWindowTitle(filename);     //设置"窗口名"为当前打开的"文件名"
+
+    newfile->setFilePath(filepath);    //传入打开的文件路径
     newfile->show();
 }
 
 void MainWindow::on_action_save_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","没有可保存的文档");
+    }
+     if(newfile->getFilePath()!=""){
+         newfile->saveFile();     //若文件有路径，调用保存
+     }
+     else {
+         newfile->saveFileAs();   //若文件无路径，调用另存为
+     }
 }
 
 void MainWindow::on_action_saveAs_triggered()
@@ -129,12 +158,12 @@ void MainWindow::on_action_paste_triggered()
 
 void MainWindow::on_action_find_triggered()
 {
-    FindDialog().exec();
+
 }
 
 void MainWindow::on_action_replace_triggered()
 {
-    ReplaceDialog().exec();
+
 }
 
 void MainWindow::on_action_bold_triggered()
@@ -194,10 +223,10 @@ void MainWindow::on_action_drawCircle_triggered()
 
 void MainWindow::on_action_about_triggered()
 {
-    aboutDialog(this).exec();
+
 }
 
 void MainWindow::on_action_about3rdParty_triggered()
 {
-    QMessageBox::aboutQt(nullptr, "关于Qt");
+
 }

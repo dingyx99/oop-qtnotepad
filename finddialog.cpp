@@ -1,94 +1,67 @@
-#include "FindDialog.h"
+#include "finddialog.h"
+#include <QtGui>
+#include <QHBoxLayout>
 
-FindDialog::FindDialog(QWidget *parent, QPlainTextEdit* ptext):QDialog(parent, Qt::WindowCloseButtonHint | Qt::Drawer)
+findDialog::findDialog(QWidget *parent):QDialog(parent)
 {
-    m_label.setText("查找内容(N):");
-    m_findbutton.setText("查找下一个(&F)");
-    m_check.setText("区分大小写(&C)");
-    m_cancelbutton.setText("取消");
-    m_forward.setText("向下(&D)");
-    m_back.setText("向上(&U)");
-    m_forward.setChecked(true);
-    m_radiogroup.setTitle("方向");
+    label = new QLabel(tr("需要寻找的内容："));
+    lineEdit = new QLineEdit;
+    label -> setBuddy(lineEdit);
 
-    m_hblayout.addWidget(&m_forward);
-    m_hblayout.addWidget(&m_back);
+    caseCheckBox = new QCheckBox(tr("全字匹配(&C)"));
+    backwardCheckBox = new QCheckBox(tr("反向寻找(&B)"));
 
-    m_radiogroup.setLayout(&m_hblayout);
+    findButton = new QPushButton(tr("搜索(&F)"));
+    findButton -> setDefault(true);
+    findButton -> setEnabled(false);
 
-    m_layout.setSpacing(10);
-    m_layout.addWidget(&m_label, 0, 0);
-    m_layout.addWidget(&m_edit, 0, 1);
-    m_layout.addWidget(&m_findbutton, 0, 2);
-    m_layout.addWidget(&m_check, 1, 0);
-    m_layout.addWidget(&m_radiogroup, 1, 1);
-    m_layout.addWidget(&m_cancelbutton, 1, 2);
+    closeButton = new QPushButton(tr("关闭"));
 
-    setLayout(&m_layout);
-    setWindowTitle("查找");
-    setPlainTextEdit(ptext);
+    connect(lineEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(enableFindButton(const QString &)));
+    connect(findButton, SIGNAL(clicked()), this, SLOT(findClicked()));
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
-    connect(&m_findbutton, SIGNAL(clicked()), this, SLOT(onFind()));
-    connect(&m_cancelbutton, SIGNAL(clicked()), this, SLOT(onCancel()));
+    QHBoxLayout *topLeftLayout = new QHBoxLayout;
+    topLeftLayout->addWidget(label);
+    topLeftLayout->addWidget(lineEdit);
+
+    QVBoxLayout *leftLayout = new QVBoxLayout;
+    leftLayout -> addLayout(topLeftLayout);
+    leftLayout -> addWidget(caseCheckBox);
+    leftLayout -> addWidget(backwardCheckBox);
+
+    QVBoxLayout *rightLayout = new QVBoxLayout;
+    rightLayout -> addWidget(findButton);
+    rightLayout -> addWidget(closeButton);
+    rightLayout -> addStretch();
+
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout -> addLayout(leftLayout);
+    mainLayout -> addLayout(rightLayout);
+    setLayout(mainLayout);
+
+    setWindowTitle(tr("搜索"));
+    setFixedHeight(sizeHint().height());
+
 }
 
-bool FindDialog::event(QEvent *event)
+void findDialog::findClicked()
 {
-    if(event->type() == QEvent::Close)
+    QString text = lineEdit->text();
+    Qt::CaseSensitivity cs = caseCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
+
+    if(backwardCheckBox->isChecked())
     {
-        hide();
-        return true;
+        emit findPrevious(text, cs);
     }
-   return QDialog::event(event);
-}
-
-void FindDialog::setPlainTextEdit(QPlainTextEdit *ptext)
-{
-    m_textedit = ptext;
-}
-
-QPlainTextEdit* FindDialog::getPlainTextEdit()
-{
-    return m_textedit;
-}
-
-void FindDialog::onFind()
-{
-    QString target = m_edit.text();
-    if((m_textedit != nullptr) && (target != ""))
+    else
     {
-        QString text = m_textedit->toPlainText();
-        QTextCursor cursor = m_textedit->textCursor();
-        int index = -1;
-        if(m_forward.isChecked())
-        {
-            index = text.indexOf(target, cursor.position(), m_check.isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
-            if(index >= 0)
-            {
-                cursor.setPosition(index);
-                cursor.setPosition(index + target.length(), QTextCursor::KeepAnchor);
-                m_textedit->setTextCursor(cursor);
-            }
-        }
-        if(m_back.isChecked())
-        {
-            index = text.lastIndexOf(target, cursor.position() - text.length() - 1, m_check.isChecked() ? Qt::CaseSensitive:Qt::CaseInsensitive);
-            if(index >= 0)
-            {
-                cursor.setPosition(index + target.length());
-                cursor.setPosition(index, QTextCursor::KeepAnchor);
-                m_textedit->setTextCursor(cursor);
-            }
-        }
-        if(index < 0)
-        {
-            QMessageBox::information(this, "查找", "找不到 \"" + target + "\"", QMessageBox::Ok);
-        }
+        emit findNext(text, cs);
     }
-
 }
 
-void FindDialog::onCancel()
+void findDialog::enableFindButton(const QString &text)
 {
-    close();
+    findButton->setEnabled(!text.isEmpty());
 }
