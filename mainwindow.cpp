@@ -126,12 +126,22 @@ void MainWindow::on_action_saveAs_triggered()
 
 void MainWindow::on_action_print_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","没有可打印的文档");
+        return;
+    }
+     newfile->printFile();
 }
 
 void MainWindow::on_action_printView_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","没有可打印的文档");
+        return;
+    }
+    newfile->printFileView();
 }
 
 void MainWindow::on_action_exit_triggered()

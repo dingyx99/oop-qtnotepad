@@ -77,6 +77,21 @@ void box::saveFile()
 
 void box::printFile()
 {
-    //QPrinter printer;
+    QPrinter printer;
+    QPrintDialog dialog(&printer, this);
+    if(this->textCursor().hasSelection()){
+        dialog.addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    }
+    if(dialog.exec()==QDialog::Accepted){
+        this->print(&printer);
+    }
+}
 
+void box::printFileView()
+{
+    QPrinter printer;
+    QPrintPreviewDialog viewDlg(&printer, this);
+    connect(&viewDlg, &QPrintPreviewDialog::paintRequested, [=](QPrinter *printer) {
+            this->print(printer);});
+    viewDlg.exec();
 }
