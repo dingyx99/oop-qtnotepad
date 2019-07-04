@@ -129,12 +129,12 @@ void MainWindow::on_action_paste_triggered()
 
 void MainWindow::on_action_find_triggered()
 {
-    findDia -> show();
+    FindDialog().exec();
 }
 
 void MainWindow::on_action_replace_triggered()
 {
-    replaceDia -> show();
+    ReplaceDialog().exec();
 }
 
 void MainWindow::on_action_bold_triggered()

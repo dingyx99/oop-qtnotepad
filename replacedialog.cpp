@@ -1,56 +1,57 @@
-#include "replacedialog.h"
+#include "ReplaceDialog.h"
 
-replaceDialog::replaceDialog(QWidget* parent, QPlainTextEdit* pText) : findDialog (parent, pText)
+ReplaceDialog::ReplaceDialog(QWidget* parent, QPlainTextEdit* ptext)
+    :FindDialog(parent, ptext)
 {
-    replaceLabel.setText("替换为(&P)");
-    replaceButton.setText("替换(&R)");
-    replaceAllButton.setText("全部替换(&A)");
+    m_replacelabel.setText("替换为(P):");
+    m_replacebutton.setText("替换(&R)");
+    m_replaceallbutton.setText("全部替换(&A)");
 
-    fLayout.removeWidget(&fCheck);
-    fLayout.removeWidget(&fRadioGroup);
-    fLayout.removeWidget(&cancelButton);
+    m_layout.removeWidget(&m_check);
+    m_layout.removeWidget(&m_radiogroup);
+    m_layout.removeWidget(&m_cancelbutton);
 
-    fLayout.addWidget(&replaceLabel, 1, 0);
-    fLayout.addWidget(&replaceEdit, 1, 1);
-    fLayout.addWidget(&replaceButton, 1, 2);
+    m_layout.addWidget(&m_replacelabel, 1, 0);
+    m_layout.addWidget(&m_replaceedit, 1, 1);
+    m_layout.addWidget(&m_replacebutton, 1, 2);
 
-    fLayout.addWidget(&fCheck, 2, 0);
-    fLayout.addWidget(&fRadioGroup, 2, 1);
-    fLayout.addWidget(&replaceAllButton, 2, 2);
+    m_layout.addWidget(&m_check, 2, 0);
+    m_layout.addWidget(&m_radiogroup, 2, 1);
+    m_layout.addWidget(&m_replaceallbutton, 2, 2);
 
-    fLayout.addWidget(&cancelButton, 3, 2);
+    m_layout.addWidget(&m_cancelbutton, 3, 2);
+    //setLayout(&m_layout);
 
     setWindowTitle("替换");
 
-    connect(&replaceButton, SIGNAL(clicked()), this, SLOT(onReplace()));
-    connect(&replaceAllButton, SIGNAL(clicked()), this, SLOT(onReplaceAll()));
+    connect(&m_replacebutton, SIGNAL(clicked()), this, SLOT(onReplace()));
+    connect(&m_replaceallbutton, SIGNAL(clicked()), this, SLOT(onRepalceAll()));
 }
 
-
-void replaceDialog::onReplace()
+void ReplaceDialog::onReplace()
 {
-    QString target = fEdit.text();
-    QString to = replaceEdit.text();
-    if((fTextEdit != nullptr) && (target != nullptr) && (to != nullptr))
+    QString target = m_edit.text();
+    QString to = m_replaceedit.text();
+    if((m_textedit != nullptr) && (target != nullptr) && (to != nullptr))
     {
-        QString select = fTextEdit -> textCursor().selectedText();
+        QString select = m_textedit->textCursor().selectedText();
         if(select == target)
         {
-            fTextEdit -> insertPlainText(to);
+            m_textedit->insertPlainText(to);
         }
         onFind();
     }
 }
 
-void replaceDialog::onReplaceAll()
+void ReplaceDialog::onRepalceAll()
 {
-    QString target = fEdit.text();
-    QString to = replaceEdit.text();
-    if((fTextEdit != nullptr) && (target != nullptr) && (to != nullptr))
+    QString target = m_edit.text();
+    QString to = m_replaceedit.text();
+    if((m_textedit != nullptr) && (target != nullptr) && (to != nullptr))
     {
-        QString text = fTextEdit -> toPlainText();
-        text.replace(target, to, fCheck.isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
-        fTextEdit -> clear();
-        fTextEdit -> insertPlainText(text);
+        QString text = m_textedit->toPlainText();
+        text.replace(target, to, m_check.isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+        m_textedit->clear();
+        m_textedit->insertPlainText(text);
     }
 }

@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QLabel>
 #include <QGridLayout>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QCheckBox>
 #include <QRadioButton>
@@ -15,14 +16,12 @@
 #include <QString>
 #include <QTextCursor>
 #include <QMessageBox>
-#include <QLineEdit>
 
-class findDialog : public QDialog
+class FindDialog : public QDialog
 {
     Q_OBJECT
-
 public:
-    findDialog(QWidget *parent = nullptr, QPlainTextEdit *ptext = nullptr);
+    FindDialog(QWidget *parent = nullptr, QPlainTextEdit* ptext = nullptr);
     bool event(QEvent *event);
     void setPlainTextEdit(QPlainTextEdit *ptext);
     QPlainTextEdit* getPlainTextEdit();
@@ -32,20 +31,20 @@ protected slots:
     void onCancel();
 
 protected:
-    QGridLayout fLayout;
-    QHBoxLayout fHBLayout;
+    QGridLayout m_layout;
+    QHBoxLayout m_hblayout;
 
-    QLabel fLabel;
-    QLineEdit fEdit;
-    QPushButton findButton;
-    QPushButton cancelButton;
-    QCheckBox fCheck;
-    QRadioButton forwardRatio;
-    QRadioButton backRatio;
+    QLabel m_label;
+    QLineEdit m_edit;
+    QPushButton m_findbutton;
+    QPushButton m_cancelbutton;
+    QCheckBox m_check;
+    QRadioButton m_forward;
+    QRadioButton m_back;
 
-    QGroupBox fRadioGroup;
+    QGroupBox m_radiogroup;
 
-    QPointer<QPlainTextEdit> fTextEdit;
+    QPointer<QPlainTextEdit> m_textedit;
 };
 
 #endif // FINDDIALOG_H

@@ -1,73 +1,83 @@
-#include "finddialog.h"
+#include "FindDialog.h"
 
-findDialog::findDialog(QWidget *parent, QPlainTextEdit* ptext):QDialog (parent, Qt::WindowCloseButtonHint | Qt::Drawer)
+FindDialog::FindDialog(QWidget *parent, QPlainTextEdit* ptext):QDialog(parent, Qt::WindowCloseButtonHint | Qt::Drawer)
 {
-    fLabel.setText("需要寻找的内容: ");
-    findButton.setText("查找下一个(&F)");
-    fCheck.setText("全字匹配(&C)");
-    cancelButton.setText("取消");
-    forwardRatio.setText("向上(&U)");
-    backRatio.setText("向下(&D)");
-    forwardRatio.setChecked(true);
-    fRadioGroup.setTitle("方向");
+    m_label.setText("查找内容(N):");
+    m_findbutton.setText("查找下一个(&F)");
+    m_check.setText("区分大小写(&C)");
+    m_cancelbutton.setText("取消");
+    m_forward.setText("向下(&D)");
+    m_back.setText("向上(&U)");
+    m_forward.setChecked(true);
+    m_radiogroup.setTitle("方向");
 
-    fHBLayout.addWidget(&forwardRatio);
-    fHBLayout.addWidget(&backRatio);
+    m_hblayout.addWidget(&m_forward);
+    m_hblayout.addWidget(&m_back);
 
-    fRadioGroup.setLayout(&fHBLayout);
+    m_radiogroup.setLayout(&m_hblayout);
 
-    fLayout.setSpacing(10);
-    fLayout.addWidget(&fLabel, 0, 0);
-    fLayout.addWidget(&fEdit, 0, 1);
-    fLayout.addWidget(&findButton, 0, 2);
-    fLayout.addWidget(&fCheck, 1, 0);
-    fLayout.addWidget(&fRadioGroup, 1, 1);
-    fLayout.addWidget(&cancelButton, 1, 2);
+    m_layout.setSpacing(10);
+    m_layout.addWidget(&m_label, 0, 0);
+    m_layout.addWidget(&m_edit, 0, 1);
+    m_layout.addWidget(&m_findbutton, 0, 2);
+    m_layout.addWidget(&m_check, 1, 0);
+    m_layout.addWidget(&m_radiogroup, 1, 1);
+    m_layout.addWidget(&m_cancelbutton, 1, 2);
 
-    setLayout(&fLayout);
+    setLayout(&m_layout);
     setWindowTitle("查找");
     setPlainTextEdit(ptext);
 
-    connect(&findButton, SIGNAL(clicked()), this, SLOT(onFind()));
-    connect(&cancelButton, SIGNAL(clicked()), this, SLOT(onCancel()));
+    connect(&m_findbutton, SIGNAL(clicked()), this, SLOT(onFind()));
+    connect(&m_cancelbutton, SIGNAL(clicked()), this, SLOT(onCancel()));
 }
 
-void findDialog::setPlainTextEdit(QPlainTextEdit *ptext)
+bool FindDialog::event(QEvent *event)
 {
-    fTextEdit = ptext;
-}
-
-QPlainTextEdit* findDialog::getPlainTextEdit()
-{
-    return fTextEdit;
-}
-
-void findDialog::onFind()
-{
-    QString target = fEdit.text();
-    if((fTextEdit != nullptr) && (target != ""))
+    if(event->type() == QEvent::Close)
     {
-        QString text = fTextEdit -> toPlainText();
-        QTextCursor cursor = fTextEdit -> textCursor();
+        hide();
+        return true;
+    }
+   return QDialog::event(event);
+}
+
+void FindDialog::setPlainTextEdit(QPlainTextEdit *ptext)
+{
+    m_textedit = ptext;
+}
+
+QPlainTextEdit* FindDialog::getPlainTextEdit()
+{
+    return m_textedit;
+}
+
+void FindDialog::onFind()
+{
+    QString target = m_edit.text();
+    if((m_textedit != nullptr) && (target != ""))
+    {
+        QString text = m_textedit->toPlainText();
+        QTextCursor cursor = m_textedit->textCursor();
         int index = -1;
-        if(forwardRatio.isChecked())
+        if(m_forward.isChecked())
         {
-            index = text.indexOf(target, cursor.position(), fCheck.isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+            index = text.indexOf(target, cursor.position(), m_check.isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
             if(index >= 0)
             {
-                cursor.setPosition(index + target.length());
+                cursor.setPosition(index);
                 cursor.setPosition(index + target.length(), QTextCursor::KeepAnchor);
-                fTextEdit -> setTextCursor(cursor);
+                m_textedit->setTextCursor(cursor);
             }
         }
-        if(backRatio.isChecked())
+        if(m_back.isChecked())
         {
-            index = text.lastIndexOf(target, cursor.position() - text.length() - 1, fCheck.isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+            index = text.lastIndexOf(target, cursor.position() - text.length() - 1, m_check.isChecked() ? Qt::CaseSensitive:Qt::CaseInsensitive);
             if(index >= 0)
             {
                 cursor.setPosition(index + target.length());
                 cursor.setPosition(index, QTextCursor::KeepAnchor);
-                fTextEdit -> setTextCursor(cursor);
+                m_textedit->setTextCursor(cursor);
             }
         }
         if(index < 0)
@@ -75,9 +85,10 @@ void findDialog::onFind()
             QMessageBox::information(this, "查找", "找不到 \"" + target + "\"", QMessageBox::Ok);
         }
     }
+
 }
 
-void findDialog::onCancel()
+void FindDialog::onCancel()
 {
     close();
 }

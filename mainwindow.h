@@ -84,8 +84,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSharedPointer<findDialog> findDia;
-    QSharedPointer<replaceDialog> replaceDia;
+    QSharedPointer<FindDialog> FindDia;
+    QSharedPointer<ReplaceDialog> ReplaceDia;
 };
 
 #endif // MAINWINDOW_H

@@ -1,27 +1,25 @@
 #ifndef REPLACEDIALOG_H
 #define REPLACEDIALOG_H
 
-#include "finddialog.h"
+#include "FindDialog.h"
 
-//Function with bugs
-
-
-class replaceDialog : public findDialog
+class ReplaceDialog : public FindDialog
 {
     Q_OBJECT
-
 public:
-    replaceDialog(QWidget* parent = nullptr, QPlainTextEdit* pText = nullptr);
+    ReplaceDialog(QWidget* parent = nullptr, QPlainTextEdit* ptnullptrxt = nullptr);
 
 protected:
-    QLabel replaceLabel;
-    QLineEdit replaceEdit;
-    QPushButton replaceButton;
-    QPushButton replaceAllButton;
+
+    QLabel m_replacelabel;
+    QLineEdit m_replaceedit;
+    QPushButton m_replacebutton;
+    QPushButton m_replaceallbutton;
 
 protected slots:
     void onReplace();
-    void onReplaceAll();
+    void onRepalceAll();
+
 };
 
 #endif // REPLACEDIALOG_H
