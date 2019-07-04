@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //ui->toolBar_1->addAction(ui->fontComboBox);
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered(bool)));   //新建
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
@@ -45,7 +46,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-box* MainWindow::activeSubwin(){
+box* MainWindow::activeSubwin(){     //定位激活窗口
     QMdiSubWindow *subWindow = ui->mdiArea->activeSubWindow();
     if(subWindow==nullptr){
         return nullptr;
@@ -73,7 +74,7 @@ void MainWindow::on_action_new_triggered()
 void MainWindow::on_action_open_triggered()
 {
     QString filepath = QFileDialog::getOpenFileName(this, QString("open a file"),
-                                                    QString("/"), "Text (*.txt)");  //获取文件路径
+                                 QString("/"), "eXtensible Markup Language File(*.xml)");  //获取文件路径
     QFile file;
     file.setFileName(filepath);    //设置文件名称（路径）
     QFileInfo info(filepath);   //通过文档路径获取文档名称
@@ -102,7 +103,9 @@ void MainWindow::on_action_save_triggered()
     box * newfile = activeSubwin();
     if(newfile==nullptr){
         QMessageBox::warning(this,"提示","没有可保存的文档");
+        return;
     }
+
      if(newfile->getFilePath()!=""){
          newfile->saveFile();     //若文件有路径，调用保存
      }
@@ -113,7 +116,12 @@ void MainWindow::on_action_save_triggered()
 
 void MainWindow::on_action_saveAs_triggered()
 {
-
+     box *newfile = activeSubwin();
+     if(newfile==nullptr){
+         QMessageBox::warning(this, "提示", "没有可保存的文档");
+         return;
+     }
+     newfile->saveFileAs();
 }
 
 void MainWindow::on_action_print_triggered()

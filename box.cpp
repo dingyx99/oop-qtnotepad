@@ -40,7 +40,7 @@ void box::creatFile()
 void box::saveFileAs()
 {
     QString filepath = QFileDialog::getSaveFileName(this, "另存为",
-                                                    "未命名文档", "Text files(*.txt)");
+                                   "未命名文档", "eXtensible Markup Language File(*.xml)");
     if(filepath == "")
     {
         QMessageBox::warning(this, "warning", "文件无保存路径");
@@ -64,7 +64,8 @@ void box::saveFileAs()
 //    file.close();
 }
 
-void box::saveFile(){
+void box::saveFile()
+{
     QFile file(filePath);
     file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
@@ -72,4 +73,10 @@ void box::saveFile(){
     out << str;
     QMessageBox::information(this, "提示", "文档保存成功");
     file.close();
+}
+
+void box::printFile()
+{
+    //QPrinter printer;
+
 }

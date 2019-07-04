@@ -7,6 +7,7 @@
 #include <QFile>
 #include <qfiledialog.h>
 #include <QMessageBox>
+#include <QtPrintSupport/QPrintDialog>
 
 namespace Ui {
 class box;
@@ -27,6 +28,7 @@ public:
     void creatFile();
     void saveFileAs();
     void saveFile();
+    void printFile();
 
 private:
     Ui::box *ui;
