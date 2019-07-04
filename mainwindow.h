@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QTextCodec>
 #include <QMessageBox>
+#include <QMdiSubWindow>
 #include "aboutdialog.h"
 #include "finddialog.h"
 #include "replacedialog.h"
