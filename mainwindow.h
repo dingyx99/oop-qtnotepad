@@ -25,6 +25,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    box *activeSubwin();
 
 private slots:
     void on_action_new_triggered();
