@@ -21,12 +21,12 @@ void box::setFilePath(QString filepath){
 QString box::getFilePath(){
     return filePath;
 }
-//void box::setFileContent(QString filecontent){
-//    fileContent = filecontent;
-//}
-//QString box::getFileContent(){
-//    return fileContent;
-//}
+void box::setFileContent(QString filecontent){
+    fileContent = filecontent;
+}
+QString box::getFileContent(){
+    return fileContent;
+}
 
 void box::creatFile()
 {
@@ -95,3 +95,66 @@ void box::printFileView()
             this->print(printer);});
     viewDlg.exec();
 }
+
+void box::copyText()
+{
+    QString text = textCursor().selectedText();   //仅文本
+    //QTextDocumentFragment text = textCursor().selection();   //文本+格式
+    setFileContent(text);
+}
+
+void box::cutText()
+{
+    QString text = textCursor().selectedText();
+    setFileContent(text);
+    textCursor().selectedText().clear();
+}
+
+void box::pasteText()
+{
+    getFileContent();
+}
+
+void box::setBold()
+{
+    QTextCharFormat fmt;
+    fmt.setFontWeight(QFont::Bold);
+    mergeFormat(fmt);    //使格式作用于选区内的字符
+}
+
+void box::setItalic()
+{
+    QTextCharFormat fmt;
+    fmt.setFontItalic(true);
+    mergeFormat(fmt);
+}
+
+void box::setUnderline()
+{
+    QTextCharFormat fmt;
+    fmt.setFontUnderline(true);
+    mergeFormat(fmt);
+}
+
+void box::setColor()
+{
+    QColor color = QColorDialog::getColor(Qt::black, this, "Select Color", QColorDialog::DontUseNativeDialog);
+        if(color.isValid())
+        {
+            this->setTextColor(color);
+        }
+    //QTextCharFormat fmt;
+}
+
+//设置光标的选区，使格式作用于选区内的字符，若没有选区则作用于光标所在处的字符
+void box::mergeFormat(QTextCharFormat format)
+{
+    QTextCursor cursor = this->textCursor();
+    if (!cursor.hasSelection())
+       cursor.select(QTextCursor::WordUnderCursor);
+    cursor.mergeCharFormat(format);
+    this->mergeCurrentCharFormat(format);
+}
+//调用QTextCursor的mergeCharFormat()函数把参数format所表示的格式
+//应用到光标所在处的字符上
+//调用QTextEdit的mergeCurrentCharFormat()函数把格式应用到选区内的所有字符上

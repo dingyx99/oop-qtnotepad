@@ -36,7 +36,7 @@
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="layout_1">
      <item>
       <widget class="QFontComboBox" name="fontComboBox"/>
      </item>
@@ -163,6 +163,7 @@
    <addaction name="separator"/>
    <addaction name="action_print"/>
    <addaction name="action_printView"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_2">
    <property name="maximumSize">

@@ -10,6 +10,7 @@
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrintPreviewDialog>
 #include <QPrinter>
+#include <QColorDialog>
 
 namespace Ui {
 class box;
@@ -24,20 +25,28 @@ public:
     ~box();
     void setFilePath(QString);
     QString getFilePath();
-//    void setFileContent(QString);
-//    QString getFileContent();
+    void setFileContent(QString);
+    QString getFileContent();
 
     void creatFile();
     void saveFileAs();
     void saveFile();
     void printFile();
     void printFileView();
+    void setBold();
+    void setItalic();
+    void setUnderline();
+    void setColor();
+    void copyText();
+    void cutText();
+    void pasteText();
 
 private:
     Ui::box *ui;
 
     QString filePath;  //保存打开文档的路径
-   // QString fileContent;
+    QString fileContent;
+    void mergeFormat(QTextCharFormat format);
 
 };
 

@@ -6,7 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //ui->toolBar_1->addAction(ui->fontComboBox);
+    ui->toolBar_1->addWidget(ui->fontComboBox);
+    ui->toolBar_1->addWidget(ui->comboBox_fontSize);
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered(bool)));   //新建
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
@@ -138,7 +139,7 @@ void MainWindow::on_action_printView_triggered()
 {
     box * newfile = activeSubwin();
     if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可打印的文档");
+        QMessageBox::warning(this,"提示","没有可预览的文档");
         return;
     }
     newfile->printFileView();
@@ -161,17 +162,32 @@ void MainWindow::on_action_redo_triggered()
 
 void MainWindow::on_action_copy_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","没有可预览的文档");
+        return;
+    }
+    newfile->copyText();
 }
 
 void MainWindow::on_action_cut_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","没有可预览的文档");
+        return;
+    }
+    newfile->cutText();
 }
 
 void MainWindow::on_action_paste_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","没有可预览的文档");
+        return;
+    }
+    newfile->pasteText();
 }
 
 void MainWindow::on_action_find_triggered()
@@ -186,43 +202,83 @@ void MainWindow::on_action_replace_triggered()
 
 void MainWindow::on_action_bold_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setBold();
 }
 
 void MainWindow::on_action_italic_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setItalic();
 }
 
 void MainWindow::on_action_underline_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setUnderline();
 }
 
 void MainWindow::on_action_color_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setColor();
 }
 
 void MainWindow::on_action_leftAlign_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setAlignment(Qt::AlignLeft);
 }
 
 void MainWindow::on_action_center_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setAlignment(Qt::AlignCenter);
 }
 
 
 void MainWindow::on_action_justifyAlign_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setAlignment(Qt::AlignJustify);
 }
 
 void MainWindow::on_action_rightAlign_triggered()
 {
-
+    box * newfile = activeSubwin();
+    if(newfile==nullptr){
+        QMessageBox::warning(this,"提示","请打开可编辑的文档");
+        return;
+    }
+    newfile->setAlignment(Qt::AlignRight);
 }
 
 void MainWindow::on_action_drawPoint_triggered()
@@ -248,3 +304,6 @@ void MainWindow::on_action_about3rdParty_triggered()
 {
 
 }
+
+
+
