@@ -147,7 +147,7 @@ void MainWindow::on_action_printView_triggered()
 
 void MainWindow::on_action_exit_triggered()
 {
-
+    exit();
 }
 
 void MainWindow::on_action_undo_triggered()
