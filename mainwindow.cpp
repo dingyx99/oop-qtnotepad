@@ -9,36 +9,36 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolBar_1->addWidget(ui->fontComboBox);
     ui->toolBar_1->addWidget(ui->comboBox_fontSize);
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered(bool)));   //新建
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_saveAs_triggered()));   //另存为
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_print_triggered()));   //打印
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_printView_triggered()));  //打印预览
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_exit_triggered()));
+    connect(ui->action_open,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
+    connect(ui->action_save,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
+    connect(ui->action_saveAs,SIGNAL(clicked(bool)), this, SLOT(on_action_saveAs_triggered()));   //另存为
+    connect(ui->action_print,SIGNAL(clicked(bool)), this, SLOT(on_action_print_triggered()));   //打印
+    connect(ui->action_printView,SIGNAL(clicked(bool)), this, SLOT(on_action_printView_triggered()));  //打印预览
+    connect(ui->action_exit,SIGNAL(clicked(bool)), this, SLOT(on_action_exit_triggered()));   //退出
 
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_undo_triggered()));  //撤销
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_redo_triggered()));   //重做
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_copy_triggered()));   //复制
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_cut_triggered()));     //剪切
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_paste_triggered()));    //粘贴
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_find_triggered()));   //查找
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_replace_triggered));   //替换
+    connect(ui->action_undo,SIGNAL(clicked(bool)), this, SLOT(on_action_undo_triggered()));  //撤销
+    connect(ui->action_redo,SIGNAL(clicked(bool)), this, SLOT(on_action_redo_triggered()));   //重做
+    connect(ui->action_copy,SIGNAL(clicked(bool)), this, SLOT(on_action_copy_triggered()));   //复制
+    connect(ui->action_cut,SIGNAL(clicked(bool)), this, SLOT(on_action_cut_triggered()));     //剪切
+    connect(ui->action_paste,SIGNAL(clicked(bool)), this, SLOT(on_action_paste_triggered()));    //粘贴
+    connect(ui->action_find,SIGNAL(clicked(bool)), this, SLOT(on_action_find_triggered()));   //查找
+    connect(ui->action_replace,SIGNAL(clicked(bool)), this, SLOT(on_action_replace_triggered));   //替换
 
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_bold_triggered()));    //加粗
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_italic_triggered()));    //倾斜
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_underline_triggered()));    //下划线
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_color_triggered()));    //颜色
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_leftAlign_triggered()));  //左对齐
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_center_triggered()));  //居中
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_right_triggered()));  //右对齐
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_justifyAlign_triggered()));  //中心对齐
+    connect(ui->action_bold,SIGNAL(clicked(bool)), this, SLOT(on_action_bold_triggered()));    //加粗
+    connect(ui->action_italic,SIGNAL(clicked(bool)), this, SLOT(on_action_italic_triggered()));    //倾斜
+    connect(ui->action_underline,SIGNAL(clicked(bool)), this, SLOT(on_action_underline_triggered()));    //下划线
+    connect(ui->action_color,SIGNAL(clicked(bool)), this, SLOT(on_action_color_triggered()));    //颜色
+    connect(ui->action_leftAlign,SIGNAL(clicked(bool)), this, SLOT(on_action_leftAlign_triggered()));  //左对齐
+    connect(ui->action_center,SIGNAL(clicked(bool)), this, SLOT(on_action_center_triggered()));  //居中
+    connect(ui->action_rightAlign,SIGNAL(clicked(bool)), this, SLOT(on_action_right_triggered()));  //右对齐
+    connect(ui->action_justifyAlign,SIGNAL(clicked(bool)), this, SLOT(on_action_justifyAlign_triggered()));  //中心对齐
 
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_drawPoint_triggered()));  //绘制点
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_drawLine_triggered()));  //绘制线
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_drawCircle_triggered()));  //绘制圆
+    connect(ui->action_drawPoint,SIGNAL(clicked(bool)), this, SLOT(on_action_drawPoint_triggered()));  //绘制点
+    connect(ui->action_drawLine,SIGNAL(clicked(bool)), this, SLOT(on_action_drawLine_triggered()));  //绘制线
+    connect(ui->action_drawCircle,SIGNAL(clicked(bool)), this, SLOT(on_action_drawCircle_triggered()));  //绘制圆
 
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_about_triggered()));  //关于
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_about3rdParty_triggered()));  //第三方声明
+    connect(ui->action_about,SIGNAL(clicked(bool)), this, SLOT(on_action_about_triggered()));  //关于
+    connect(ui->action_about3rdParty,SIGNAL(clicked(bool)), this, SLOT(on_action_about3rdParty_triggered()));  //第三方声明
 
 }
 
@@ -164,7 +164,7 @@ void MainWindow::on_action_copy_triggered()
 {
     box * newfile = activeSubwin();
     if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可预览的文档");
+        QMessageBox::warning(this,"提示","没有可复制的文档");
         return;
     }
     newfile->copyText();
@@ -174,7 +174,7 @@ void MainWindow::on_action_cut_triggered()
 {
     box * newfile = activeSubwin();
     if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可预览的文档");
+        QMessageBox::warning(this,"提示","没有可剪切的文档");
         return;
     }
     newfile->cutText();
@@ -184,7 +184,7 @@ void MainWindow::on_action_paste_triggered()
 {
     box * newfile = activeSubwin();
     if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可预览的文档");
+        QMessageBox::warning(this,"提示","没有可粘贴的文档");
         return;
     }
     newfile->pasteText();

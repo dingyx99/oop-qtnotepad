@@ -45,7 +45,7 @@ private:
     Ui::box *ui;
 
     QString filePath;  //保存打开文档的路径
-    QString fileContent;
+    QString fileContent;   //剪切板
     void mergeFormat(QTextCharFormat format);
 
 };

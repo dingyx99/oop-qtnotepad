@@ -107,12 +107,14 @@ void box::cutText()
 {
     QString text = textCursor().selectedText();
     setFileContent(text);
-    textCursor().selectedText().clear();
+    //textCursor().selectedText().clear();
+    //this->textCursor().selectedText().clear();
+    this->textCursor().insertText("");
 }
 
 void box::pasteText()
 {
-    getFileContent();
+    this->textCursor().insertText(getFileContent());
 }
 
 void box::setBold()
