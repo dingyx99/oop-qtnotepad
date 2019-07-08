@@ -38,8 +38,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_drawCircle,SIGNAL(clicked(bool)), this, SLOT(on_action_drawCircle_triggered()));  //绘制圆
 
     connect(ui->action_about,SIGNAL(clicked(bool)), this, SLOT(on_action_about_triggered()));  //关于
-    connect(ui->action_about3rdParty,SIGNAL(clicked(bool)), this, SLOT(on_action_about3rdParty_triggered()));  //第三方声明
+    connect(ui->action_about3rdParty,SIGNAL(clicked(bool)), this, SLOT(aboutQt()));  //第三方声明
 
+    setDisable();
 }
 
 MainWindow::~MainWindow()
@@ -63,12 +64,64 @@ box* MainWindow::activeSubwin(){     //定位激活窗口
     return newfile;
 }
 
+void MainWindow::setDisable()
+{
+        ui->action_save->setDisabled(true);
+        ui->action_saveAs->setDisabled(true);
+        ui->action_print->setDisabled(true);
+        ui->action_printView->setDisabled(true);
+        ui->action_undo->setDisabled(true);
+        ui->action_redo->setDisabled(true);
+        ui->action_copy->setDisabled(true);
+        ui->action_cut->setDisabled(true);
+        ui->action_paste->setDisabled(true);
+        ui->action_find->setDisabled(true);
+        ui->action_replace->setDisabled(true);
+        ui->action_bold->setDisabled(true);
+        ui->action_italic->setDisabled(true);
+        ui->action_underline->setDisabled(true);
+        ui->action_color->setDisabled(true);
+        ui->action_leftAlign->setDisabled(true);
+        ui->action_center->setDisabled(true);
+        ui->action_rightAlign->setDisabled(true);
+        ui->action_justifyAlign->setDisabled(true);
+        ui->action_drawPoint->setDisabled(true);
+        ui->action_drawLine->setDisabled(true);
+        ui->action_drawCircle->setDisabled(true);
+}
+
+void MainWindow::setEnable()
+{
+    ui->action_save->setEnabled(true);
+    ui->action_saveAs->setEnabled(true);
+    ui->action_print->setEnabled(true);
+    ui->action_printView->setEnabled(true);
+    ui->action_undo->setEnabled(true);
+    ui->action_redo->setEnabled(true);
+    ui->action_copy->setEnabled(true);
+    ui->action_cut->setEnabled(true);
+    ui->action_paste->setEnabled(true);
+    ui->action_find->setEnabled(true);
+    ui->action_replace->setEnabled(true);
+    ui->action_bold->setEnabled(true);
+    ui->action_italic->setEnabled(true);
+    ui->action_underline->setEnabled(true);
+    ui->action_color->setEnabled(true);
+    ui->action_leftAlign->setEnabled(true);
+    ui->action_center->setEnabled(true);
+    ui->action_rightAlign->setEnabled(true);
+    ui->action_justifyAlign->setEnabled(true);
+    ui->action_drawPoint->setEnabled(true);
+    ui->action_drawLine->setEnabled(true);
+    ui->action_drawCircle->setEnabled(true);
+}
+
 void MainWindow::on_action_new_triggered()
 {
-    qDebug() << "success1";
     box *newfile = new box;     //新建窗口
     ui->mdiArea->addSubWindow(newfile);     //将窗口放在容器内
     newfile->creatFile();     //设置新建窗口的名称，依次增加
+    setEnable();
     newfile->show();
 }
 
@@ -95,6 +148,7 @@ void MainWindow::on_action_open_triggered()
     ui->mdiArea->addSubWindow(newfile);     //将窗口放在容器内
     newfile->setWindowTitle(filename);     //设置"窗口名"为当前打开的"文件名"
 
+    setEnable();
     newfile->setFilePath(filepath);    //传入打开的文件路径
     newfile->show();
 }
@@ -102,11 +156,6 @@ void MainWindow::on_action_open_triggered()
 void MainWindow::on_action_save_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可保存的文档");
-        return;
-    }
-
      if(newfile->getFilePath()!=""){
          newfile->saveFile();     //若文件有路径，调用保存
      }
@@ -118,30 +167,18 @@ void MainWindow::on_action_save_triggered()
 void MainWindow::on_action_saveAs_triggered()
 {
      box *newfile = activeSubwin();
-     if(newfile==nullptr){
-         QMessageBox::warning(this, "提示", "没有可保存的文档");
-         return;
-     }
      newfile->saveFileAs();
 }
 
 void MainWindow::on_action_print_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可打印的文档");
-        return;
-    }
      newfile->printFile();
 }
 
 void MainWindow::on_action_printView_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可预览的文档");
-        return;
-    }
     newfile->printFileView();
 }
 
@@ -165,30 +202,18 @@ void MainWindow::on_action_redo_triggered()
 void MainWindow::on_action_copy_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可复制的文档");
-        return;
-    }
     newfile->copyText();
 }
 
 void MainWindow::on_action_cut_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可剪切的文档");
-        return;
-    }
     newfile->cutText();
 }
 
 void MainWindow::on_action_paste_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","没有可粘贴的文档");
-        return;
-    }
     newfile->pasteText();
 }
 
@@ -205,60 +230,36 @@ void MainWindow::on_action_replace_triggered()
 void MainWindow::on_action_bold_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setBold();
 }
 
 void MainWindow::on_action_italic_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setItalic();
 }
 
 void MainWindow::on_action_underline_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setUnderline();
 }
 
 void MainWindow::on_action_color_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setColor();
 }
 
 void MainWindow::on_action_leftAlign_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setAlignment(Qt::AlignLeft);
 }
 
 void MainWindow::on_action_center_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setAlignment(Qt::AlignCenter);
 }
 
@@ -266,20 +267,12 @@ void MainWindow::on_action_center_triggered()
 void MainWindow::on_action_justifyAlign_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setAlignment(Qt::AlignJustify);
 }
 
 void MainWindow::on_action_rightAlign_triggered()
 {
     box * newfile = activeSubwin();
-    if(newfile==nullptr){
-        QMessageBox::warning(this,"提示","请打开可编辑的文档");
-        return;
-    }
     newfile->setAlignment(Qt::AlignRight);
 }
 
@@ -299,12 +292,7 @@ void MainWindow::on_action_drawCircle_triggered()
 
 void MainWindow::on_action_about_triggered()
 {
-
-}
-
-void MainWindow::on_action_about3rdParty_triggered()
-{
-
+    aboutDialog().exec();
 }
 
 

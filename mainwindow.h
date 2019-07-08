@@ -32,6 +32,9 @@ public:
 private slots:
     void on_action_new_triggered();
 
+    void setDisable();
+
+    void setEnable();
 
     void on_action_open_triggered();
 
@@ -83,7 +86,6 @@ private slots:
 
     void on_action_about_triggered();
 
-    void on_action_about3rdParty_triggered();
 
 private:
     Ui::MainWindow *ui;
