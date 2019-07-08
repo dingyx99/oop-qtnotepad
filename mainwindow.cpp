@@ -231,7 +231,6 @@ void MainWindow::on_action_bold_triggered()
 {
     box * currentFile = activeSubwin();
     ui->action_bold->isChecked() ? currentFile->setBold() : currentFile->setPlain(1);
-
 }
 
 void MainWindow::on_action_italic_triggered()
@@ -296,19 +295,5 @@ void MainWindow::on_action_about_triggered()
     aboutDialog().exec();
 }
 
-void box::maybeSave()
-{
-    if (!document()->isModified())
-        return;
-    QMessageBox::StandardButton ret;
-    ret = QMessageBox::warning(this, tr("Myself Qt Word"),tr("文档已被修改,保存吗?"),QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    if (ret == QMessageBox::Save)
-    {
-        saveFile();
-        return;
-    }
-    else if (ret == QMessageBox::Cancel)
-        return;
-    return;
-}
+
 

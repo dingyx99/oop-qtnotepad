@@ -183,18 +183,27 @@ void box::mergeFormat(QTextCharFormat format)
 
 void box::closeEvent(QCloseEvent *event)
 {
-QMessageBox::StandardButton button;
-    button=QMessageBox::question(this,tr("退出程序"),QString(tr("确认退出程序")),QMessageBox::Yes|QMessageBox::No);
-    if(button==QMessageBox::No)
+    if (!document()->isModified())
+        return;
+    QMessageBox::StandardButton button;
+    button = QMessageBox::warning(this, tr("Myself Qt Word"),tr("文档已被修改,保存吗?")
+                     ,QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+
+    if(button==QMessageBox::Save)
+    {
+        if(this->getFilePath()=="") saveFileAs();
+        else saveFile();
+        return;
+    }
+    else if(button==QMessageBox::Cancel)
     {
         event->ignore(); // 忽略退出信号，程序继续进行
+        return;
     }
-    else if(button==QMessageBox::Yes)
+    else if(button==QMessageBox::Discard)
     {
-        event->accept(); // 接受退出信号，程序退出
-
+        event->accept();
+        return;
     }
 }
-
-
 
