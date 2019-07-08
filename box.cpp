@@ -125,14 +125,6 @@ void box::setBold()
     mergeFormat(fmt);    //使格式作用于选区内的字符
 }
 
-void box::unsetBold()
-{
-    QTextCharFormat fmt;
-    fmt.setFontWeight(QFont::Normal);
-    mergeFormat(fmt);    //使格式作用于选区内的字符
-}
-
-
 void box::setItalic()
 {
     QTextCharFormat fmt;
@@ -144,6 +136,25 @@ void box::setUnderline()
 {
     QTextCharFormat fmt;
     fmt.setFontUnderline(true);
+    mergeFormat(fmt);
+}
+
+void box::setPlain(int status)
+{
+    QTextCharFormat fmt;
+    switch (status) {
+        case 1 :
+        fmt.setFontWeight(QFont::Normal);
+        break;
+    case 2 :
+        fmt.setFontItalic(false);
+        break;
+    case 3 :
+        fmt.setFontUnderline(false);
+        break;
+    default:
+        break;
+    }
     mergeFormat(fmt);
 }
 

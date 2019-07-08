@@ -32,8 +32,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>247</width>
-      <height>22</height>
+      <width>312</width>
+      <height>24</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="layout_1">
@@ -78,7 +78,7 @@
      <x>0</x>
      <y>0</y>
      <width>701</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -404,6 +404,9 @@
    </property>
   </action>
   <action name="action_bold">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icon.qrc">
      <normaloff>:/new/images/Bold.png</normaloff>:/new/images/Bold.png</iconset>
@@ -416,6 +419,9 @@
    </property>
   </action>
   <action name="action_italic">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icon.qrc">
      <normaloff>:/new/images/Italic.png</normaloff>:/new/images/Italic.png</iconset>
@@ -428,6 +434,9 @@
    </property>
   </action>
   <action name="action_underline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icon.qrc">
      <normaloff>:/new/images/Underline.png</normaloff>:/new/images/Underline.png</iconset>
@@ -449,6 +458,12 @@
    </property>
   </action>
   <action name="action_leftAlign">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icon.qrc">
      <normaloff>:/new/images/TextAlignLeft.png</normaloff>:/new/images/TextAlignLeft.png</iconset>
@@ -461,6 +476,9 @@
    </property>
   </action>
   <action name="action_center">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icon.qrc">
      <normaloff>:/new/images/TextAlignCenter.png</normaloff>:/new/images/TextAlignCenter.png</iconset>
@@ -473,6 +491,9 @@
    </property>
   </action>
   <action name="action_rightAlign">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icon.qrc">
      <normaloff>:/new/images/TextAlignRight.png</normaloff>:/new/images/TextAlignRight.png</iconset>
@@ -485,6 +506,9 @@
    </property>
   </action>
   <action name="action_justifyAlign">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icon.qrc">
      <normaloff>:/new/images/TextAlignWordJustify.png</normaloff>:/new/images/TextAlignWordJustify.png</iconset>

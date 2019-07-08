@@ -24,14 +24,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_find,SIGNAL(clicked(bool)), this, SLOT(on_action_find_triggered()));   //查找
     connect(ui->action_replace,SIGNAL(clicked(bool)), this, SLOT(on_action_replace_triggered));   //替换
 
-    connect(ui->action_bold,SIGNAL(checked()), this, SLOT(on_action_bold_triggered()));    //加粗
-    connect(ui->action_italic,SIGNAL(clicked(bool)), this, SLOT(on_action_italic_triggered()));    //倾斜
-    connect(ui->action_underline,SIGNAL(clicked(bool)), this, SLOT(on_action_underline_triggered()));    //下划线
-    connect(ui->action_color,SIGNAL(clicked(bool)), this, SLOT(on_action_color_triggered()));    //颜色
-    connect(ui->action_leftAlign,SIGNAL(clicked(bool)), this, SLOT(on_action_leftAlign_triggered()));  //左对齐
-    connect(ui->action_center,SIGNAL(clicked(bool)), this, SLOT(on_action_center_triggered()));  //居中
-    connect(ui->action_rightAlign,SIGNAL(clicked(bool)), this, SLOT(on_action_right_triggered()));  //右对齐
-    connect(ui->action_justifyAlign,SIGNAL(clicked(bool)), this, SLOT(on_action_justifyAlign_triggered()));  //中心对齐
+    connect(ui->action_bold,SIGNAL(toggled()), this, SLOT(on_action_bold_triggered()));    //加粗
+    connect(ui->action_italic,SIGNAL(toggled()), this, SLOT(on_action_italic_triggered()));    //倾斜
+    connect(ui->action_underline,SIGNAL(toggled()), this, SLOT(on_action_underline_triggered()));    //下划线
+    connect(ui->action_color,SIGNAL(toggled()), this, SLOT(on_action_color_triggered()));    //颜色
+    connect(ui->action_leftAlign,SIGNAL(toggled()), this, SLOT(setAlign(1)));  //左对齐
+    connect(ui->action_center,SIGNAL(toggled()), this, SLOT(setAlign(2)));  //居中
+    connect(ui->action_rightAlign,SIGNAL(toggled()), this, SLOT(setAlign(3)));  //右对齐
+    connect(ui->action_justifyAlign,SIGNAL(toggled()), this, SLOT(setAlign(4)));  //中心对齐
 
     connect(ui->action_drawPoint,SIGNAL(clicked(bool)), this, SLOT(on_action_drawPoint_triggered()));  //绘制点
     connect(ui->action_drawLine,SIGNAL(clicked(bool)), this, SLOT(on_action_drawLine_triggered()));  //绘制线
@@ -57,11 +57,11 @@ box* MainWindow::activeSubwin(){     //定位激活窗口
     if(wid==nullptr){
         return nullptr;
     }
-    box *newfile = (box *)wid;
-    if(newfile==nullptr){
+    box *currentFile = (box *)wid;
+    if(currentFile==nullptr){
         return nullptr;
     }
-    return newfile;
+    return currentFile;
 }
 
 void MainWindow::setDisable()
@@ -118,11 +118,11 @@ void MainWindow::setEnable()
 
 void MainWindow::on_action_new_triggered()
 {
-    box *newfile = new box;     //新建窗口
-    ui->mdiArea->addSubWindow(newfile);     //将窗口放在容器内
-    newfile->creatFile();     //设置新建窗口的名称，依次增加
+    box *currentFile = new box;     //新建窗口
+    ui->mdiArea->addSubWindow(currentFile);     //将窗口放在容器内
+    currentFile->creatFile();     //设置新建窗口的名称，依次增加
     setEnable();
-    newfile->show();
+    currentFile->show();
 }
 
 void MainWindow::on_action_open_triggered()
@@ -143,43 +143,43 @@ void MainWindow::on_action_open_triggered()
     QTextCodec *codec = QTextCodec::codecForName("GBK");    //将读取的文档内容编码格式转为GBK,能够显示中文
     QString text_utf = codec->toUnicode(text);
 
-    box *newfile = new box;      //新建窗口并将文档写入
-    newfile->setText(text_utf);
-    ui->mdiArea->addSubWindow(newfile);     //将窗口放在容器内
-    newfile->setWindowTitle(filename);     //设置"窗口名"为当前打开的"文件名"
+    box *currentFile = new box;      //新建窗口并将文档写入
+    currentFile->setText(text_utf);
+    ui->mdiArea->addSubWindow(currentFile);     //将窗口放在容器内
+    currentFile->setWindowTitle(filename);     //设置"窗口名"为当前打开的"文件名"
 
     setEnable();
-    newfile->setFilePath(filepath);    //传入打开的文件路径
-    newfile->show();
+    currentFile->setFilePath(filepath);    //传入打开的文件路径
+    currentFile->show();
 }
 
 void MainWindow::on_action_save_triggered()
 {
-    box * newfile = activeSubwin();
-     if(newfile->getFilePath()!=""){
-         newfile->saveFile();     //若文件有路径，调用保存
+    box * currentFile = activeSubwin();
+     if(currentFile->getFilePath()!=""){
+         currentFile->saveFile();     //若文件有路径，调用保存
      }
      else {
-         newfile->saveFileAs();   //若文件无路径，调用另存为
+         currentFile->saveFileAs();   //若文件无路径，调用另存为
      }
 }
 
 void MainWindow::on_action_saveAs_triggered()
 {
-     box *newfile = activeSubwin();
-     newfile->saveFileAs();
+     box *currentFile = activeSubwin();
+     currentFile->saveFileAs();
 }
 
 void MainWindow::on_action_print_triggered()
 {
-    box * newfile = activeSubwin();
-     newfile->printFile();
+    box * currentFile = activeSubwin();
+     currentFile->printFile();
 }
 
 void MainWindow::on_action_printView_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->printFileView();
+    box * currentFile = activeSubwin();
+    currentFile->printFileView();
 }
 
 void MainWindow::on_action_exit_triggered()
@@ -189,32 +189,32 @@ void MainWindow::on_action_exit_triggered()
 
 void MainWindow::on_action_undo_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile -> undo();
+    box * currentFile = activeSubwin();
+    currentFile -> undo();
 }
 
 void MainWindow::on_action_redo_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile -> redo();
+    box * currentFile = activeSubwin();
+    currentFile -> redo();
 }
 
 void MainWindow::on_action_copy_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->copyText();
+    box * currentFile = activeSubwin();
+    currentFile->copyText();
 }
 
 void MainWindow::on_action_cut_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->cutText();
+    box * currentFile = activeSubwin();
+    currentFile->cutText();
 }
 
 void MainWindow::on_action_paste_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->pasteText();
+    box * currentFile = activeSubwin();
+    currentFile->pasteText();
 }
 
 void MainWindow::on_action_find_triggered()
@@ -229,58 +229,52 @@ void MainWindow::on_action_replace_triggered()
 
 void MainWindow::on_action_bold_triggered()
 {
-    box * newfile = activeSubwin();
-    if(ui->action_bold->isChecked())
-    {
-        newfile->setBold();
-    }
-    else {
-        newfile->unsetBold();
-    }
+    box * currentFile = activeSubwin();
+    ui->action_bold->isChecked() ? currentFile->setBold() : currentFile->setPlain(1);
 
 }
 
 void MainWindow::on_action_italic_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->setItalic();
+    box * currentFile = activeSubwin();
+    ui->action_italic->isChecked() ? currentFile->setItalic() : currentFile->setPlain(2);
 }
 
 void MainWindow::on_action_underline_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->setUnderline();
+    box * currentFile = activeSubwin();
+    ui->action_underline->isChecked() ? currentFile->setUnderline() : currentFile->setPlain(3);
 }
 
 void MainWindow::on_action_color_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->setColor();
+    box * currentFile = activeSubwin();
+    currentFile->setColor();
 }
 
 void MainWindow::on_action_leftAlign_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->setAlignment(Qt::AlignLeft);
+    box * currentFile = activeSubwin();
+    currentFile->setAlignment(Qt::AlignLeft);
 }
 
 void MainWindow::on_action_center_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->setAlignment(Qt::AlignCenter);
+    box * currentFile = activeSubwin();
+    currentFile->setAlignment(Qt::AlignCenter);
 }
 
 
 void MainWindow::on_action_justifyAlign_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->setAlignment(Qt::AlignJustify);
+    box * currentFile = activeSubwin();
+    currentFile->setAlignment(Qt::AlignJustify);
 }
 
 void MainWindow::on_action_rightAlign_triggered()
 {
-    box * newfile = activeSubwin();
-    newfile->setAlignment(Qt::AlignRight);
+    box * currentFile = activeSubwin();
+    currentFile->setAlignment(Qt::AlignRight);
 }
 
 void MainWindow::on_action_drawPoint_triggered()
@@ -317,5 +311,4 @@ void box::maybeSave()
         return;
     return;
 }
-
 

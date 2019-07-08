@@ -37,11 +37,11 @@ public:
     void setBold();
     void setItalic();
     void setUnderline();
+    void setPlain(int );
     void setColor();
     void copyText();
     void cutText();
     void pasteText();
-    void unsetBold();
     void maybeSave();
     void closeEvent(QCloseEvent *event);
 
