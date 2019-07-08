@@ -11,6 +11,7 @@
 #include <QtPrintSupport/QPrintPreviewDialog>
 #include <QPrinter>
 #include <QColorDialog>
+#include <QCloseEvent>
 
 namespace Ui {
 class box;
@@ -40,6 +41,11 @@ public:
     void copyText();
     void cutText();
     void pasteText();
+    void unsetBold();
+    void maybeSave();
+    void closeEvent(QCloseEvent *event);
+
+
 
 private:
     Ui::box *ui;

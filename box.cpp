@@ -8,6 +8,7 @@ box::box(QWidget *parent) :
     ui(new Ui::box)
 {
     ui->setupUi(this);
+    //connect(this->close(),SIGNAL(clicked(bool)),this,SLOT(box::test()));
 }
 
 box::~box()
@@ -40,7 +41,7 @@ void box::creatFile()
 void box::saveFileAs()
 {
     QString filepath = QFileDialog::getSaveFileName(this, "另存为",
-                                   "未命名文档", "eXtensible Markup Language File(*.xml)");
+                                   "未命名文档", "HTML 文档 (*.htm *.html);;所有文件 (*.*)");
     if(filepath == "")
     {
         QMessageBox::warning(this, "warning", "文件无保存路径");
@@ -54,7 +55,7 @@ void box::saveFileAs()
         return;
     }
     QTextStream out(&file);
-    QString str = this->toPlainText();  //提取文档内容
+    QString str = this->document()->toHtml();  //提取文档内容
     out << str;     //把文档内容写入新建文档
     QMessageBox::information(this, "提示", "文档保存成功");
     file.close();    //关闭文档
@@ -69,7 +70,7 @@ void box::saveFile()
     QFile file(filePath);
     file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
-    QString str = this->toPlainText();
+    QString str = this->document()->toHtml();
     out << str;
     QMessageBox::information(this, "提示", "文档保存成功");
     file.close();
@@ -124,6 +125,14 @@ void box::setBold()
     mergeFormat(fmt);    //使格式作用于选区内的字符
 }
 
+void box::unsetBold()
+{
+    QTextCharFormat fmt;
+    fmt.setFontWeight(QFont::Normal);
+    mergeFormat(fmt);    //使格式作用于选区内的字符
+}
+
+
 void box::setItalic()
 {
     QTextCharFormat fmt;
@@ -160,3 +169,21 @@ void box::mergeFormat(QTextCharFormat format)
 //调用QTextCursor的mergeCharFormat()函数把参数format所表示的格式
 //应用到光标所在处的字符上
 //调用QTextEdit的mergeCurrentCharFormat()函数把格式应用到选区内的所有字符上
+
+void box::closeEvent(QCloseEvent *event)
+{
+QMessageBox::StandardButton button;
+    button=QMessageBox::question(this,tr("退出程序"),QString(tr("确认退出程序")),QMessageBox::Yes|QMessageBox::No);
+    if(button==QMessageBox::No)
+    {
+        event->ignore(); // 忽略退出信号，程序继续进行
+    }
+    else if(button==QMessageBox::Yes)
+    {
+        event->accept(); // 接受退出信号，程序退出
+
+    }
+}
+
+
+

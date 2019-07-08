@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_find,SIGNAL(clicked(bool)), this, SLOT(on_action_find_triggered()));   //查找
     connect(ui->action_replace,SIGNAL(clicked(bool)), this, SLOT(on_action_replace_triggered));   //替换
 
-    connect(ui->action_bold,SIGNAL(clicked(bool)), this, SLOT(on_action_bold_triggered()));    //加粗
+    connect(ui->action_bold,SIGNAL(checked()), this, SLOT(on_action_bold_triggered()));    //加粗
     connect(ui->action_italic,SIGNAL(clicked(bool)), this, SLOT(on_action_italic_triggered()));    //倾斜
     connect(ui->action_underline,SIGNAL(clicked(bool)), this, SLOT(on_action_underline_triggered()));    //下划线
     connect(ui->action_color,SIGNAL(clicked(bool)), this, SLOT(on_action_color_triggered()));    //颜色
@@ -230,7 +230,14 @@ void MainWindow::on_action_replace_triggered()
 void MainWindow::on_action_bold_triggered()
 {
     box * newfile = activeSubwin();
-    newfile->setBold();
+    if(ui->action_bold->isChecked())
+    {
+        newfile->setBold();
+    }
+    else {
+        newfile->unsetBold();
+    }
+
 }
 
 void MainWindow::on_action_italic_triggered()
@@ -295,5 +302,20 @@ void MainWindow::on_action_about_triggered()
     aboutDialog().exec();
 }
 
+void box::maybeSave()
+{
+    if (!document()->isModified())
+        return;
+    QMessageBox::StandardButton ret;
+    ret = QMessageBox::warning(this, tr("Myself Qt Word"),tr("文档已被修改,保存吗?"),QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    if (ret == QMessageBox::Save)
+    {
+        saveFile();
+        return;
+    }
+    else if (ret == QMessageBox::Cancel)
+        return;
+    return;
+}
 
 
