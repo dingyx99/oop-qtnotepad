@@ -147,17 +147,19 @@ void MainWindow::on_action_printView_triggered()
 
 void MainWindow::on_action_exit_triggered()
 {
-    exit();
+    exit(0);
 }
 
 void MainWindow::on_action_undo_triggered()
 {
-
+    box * newfile = activeSubwin();
+    newfile -> undo();
 }
 
 void MainWindow::on_action_redo_triggered()
 {
-
+    box * newfile = activeSubwin();
+    newfile -> redo();
 }
 
 void MainWindow::on_action_copy_triggered()
