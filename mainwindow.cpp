@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->toolBar_1->addWidget(ui->fontComboBox);
     ui->toolBar_1->addWidget(ui->comboBox_fontSize);
+    ui->mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    ui->mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setCentralWidget(ui->mdiArea);
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered(bool)));   //新建
     connect(ui->action_open,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
     connect(ui->action_save,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
