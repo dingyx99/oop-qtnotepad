@@ -8,9 +8,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->toolBar_1->addWidget(ui->fontComboBox);
     ui->toolBar_1->addWidget(ui->comboBox_fontSize);
+
     ui->mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(ui->mdiArea);
+
+//    QStringList list = (QStringList() << "1" << "2" << "3");
+//    ui->comboBox_fontSize->addItems(list);
 
     //让对齐类按钮互斥
     QActionGroup * alignmentGroup = new QActionGroup(this);
@@ -51,6 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->action_about,SIGNAL(clicked(bool)), this, SLOT(on_action_about_triggered()));  //关于
     connect(ui->action_about3rdParty,SIGNAL(clicked(bool)), this, SLOT(aboutQt()));  //第三方声明
+
+    connect(ui->fontComboBox,SIGNAL(activated(QString)),this, SLOT(on_fontComboBox_currentFontChanged(QString))); //字体
+    connect(ui->comboBox_fontSize,SIGNAL(activated(QString)),this, SLOT(on_comboBox_fontSize_activated(QString)));
 
     setDisable();
 }
@@ -294,9 +301,7 @@ void MainWindow::on_action_rightAlign_triggered()
 
 void MainWindow::on_action_drawPoint_triggered()
 {
-    box * currentFile = activeSubwin();
-    QFont font = ui->fontComboBox->currentFont();
-    currentFile->setFont(font);
+
 }
 void MainWindow::on_action_drawLine_triggered()
 {
@@ -315,3 +320,15 @@ void MainWindow::on_action_about_triggered()
 
 
 
+
+void MainWindow::on_fontComboBox_currentFontChanged(QString fontFamily)
+{
+    box * currentFile = activeSubwin();
+    currentFile->setFont(fontFamily);
+}
+
+void MainWindow::on_comboBox_fontSize_activated(QString fontsize)
+{
+    box * currentFile = activeSubwin();
+    currentFile->setSize(fontsize.toDouble());
+}

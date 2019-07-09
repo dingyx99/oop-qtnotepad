@@ -12,6 +12,7 @@
 #include <QMdiSubWindow>
 #include <QAction>
 #include <QActionGroup>
+#include <QStringList>
 #include "aboutdialog.h"
 #include "finddialog.h"
 #include "replacedialog.h"
@@ -87,6 +88,10 @@ private slots:
 
     void on_action_about_triggered();
 
+
+    void on_fontComboBox_currentFontChanged(QString fontFamily);
+
+    void on_comboBox_fontSize_activated(QString fontsize);
 
 private:
     Ui::MainWindow *ui;

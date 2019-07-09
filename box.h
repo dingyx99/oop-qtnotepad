@@ -12,6 +12,7 @@
 #include <QPrinter>
 #include <QColorDialog>
 #include <QCloseEvent>
+#include <QTextCharFormat>
 
 namespace Ui {
 class box;
@@ -42,7 +43,8 @@ public:
     void copyText();
     void cutText();
     void pasteText();
-    void setFont(QFont);
+    void setFont(QString);
+    void setSize(double);
     void maybeSave();
     void closeEvent(QCloseEvent *event);
 

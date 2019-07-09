@@ -165,9 +165,20 @@ void box::setColor()
     //QTextCharFormat fmt;
 }
 
-void box::setFont(QFont font)
+void box::setFont(QString fontFamily)
 {
-    QTextFormat fmt;
+    QTextCharFormat fmt;
+    //QString fontName = font.styleName();
+    //QString fontName = font.family();
+    fmt.setFontFamily(fontFamily);
+    mergeFormat(fmt);
+}
+
+void box::setSize(double size)
+{
+    QTextCharFormat fmt;
+    fmt.setFontPointSize(size);
+    mergeFormat(fmt);
 }
 
 //设置光标的选区，使格式作用于选区内的字符，若没有选区则作用于光标所在处的字符
