@@ -162,7 +162,7 @@ void MainWindow::on_action_open_triggered()
     }   //以读和写的方式打开文件,若未打开任何文档，则不新建窗口
 
     QByteArray text = file.readAll();     //读文档：ALL
-    QTextCodec *codec = QTextCodec::codecForName("GBK");    //将读取的文档内容编码格式转为GBK,能够显示中文
+    QTextCodec *codec = QTextCodec::codecForName("UTF-8");    //使用UTF-8提高兼容性，不易出现乱码
     QString text_utf = codec->toUnicode(text);
 
     box *currentFile = new box;      //新建窗口并将文档写入
@@ -188,20 +188,20 @@ void MainWindow::on_action_save_triggered()
 
 void MainWindow::on_action_saveAs_triggered()
 {
-     box *currentFile = activeSubwin();
-     currentFile->saveFileAs();
+    box *currentFile = activeSubwin();
+    currentFile->saveFileAs();
 }
 
 void MainWindow::on_action_print_triggered()
 {
     box * currentFile = activeSubwin();
-     currentFile->printFile();
+    currentFile != nullptr ? currentFile -> printFile () : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
 }
 
 void MainWindow::on_action_printView_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile->printFileView();
+    currentFile != nullptr ? currentFile -> printFileView () : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
 }
 
 void MainWindow::on_action_exit_triggered()
@@ -212,31 +212,31 @@ void MainWindow::on_action_exit_triggered()
 void MainWindow::on_action_undo_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile -> undo();
+    currentFile -> isUndoAvailable() ? currentFile -> undo() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
 }
 
 void MainWindow::on_action_redo_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile -> redo();
+    currentFile -> isRedoAvailable() ? currentFile -> redo() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
 }
 
 void MainWindow::on_action_copy_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile->copyText();
+    currentFile != nullptr ? currentFile->copyText() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
 }
 
 void MainWindow::on_action_cut_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile->cutText();
+    currentFile != nullptr ? currentFile->cutText() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
 }
 
 void MainWindow::on_action_paste_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile->pasteText();
+    currentFile != nullptr ? currentFile->pasteText() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
 }
 
 void MainWindow::on_action_find_triggered()
