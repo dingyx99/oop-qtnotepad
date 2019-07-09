@@ -42,6 +42,7 @@ public:
     void copyText();
     void cutText();
     void pasteText();
+    void setFont(QFont);
     void maybeSave();
     void closeEvent(QCloseEvent *event);
 
