@@ -13,7 +13,7 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QStringList>
-#include <QTextImageFormat>
+#include <QApplication>
 #include "aboutdialog.h"
 #include "finddialog.h"
 #include "replacedialog.h"
@@ -89,6 +89,7 @@ private slots:
 
     void on_action_about_triggered();
 
+    void on_action_about_qt_triggered();
 
     void on_fontComboBox_currentFontChanged(QString fontFamily);
 

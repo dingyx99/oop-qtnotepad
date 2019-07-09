@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_drawCircle,SIGNAL(toggled()), this, SLOT(on_action_drawCircle_triggered()));  //绘制圆
 
     connect(ui->action_about,SIGNAL(toggled()), this, SLOT(on_action_about_triggered()));  //关于
-    connect(ui->action_about3rdParty,SIGNAL(toggled()), this, SLOT(aboutQt()));  //第三方声明
+    connect(ui->action_about3rdParty, SIGNAL(triggered()), this, SLOT(on_action_about_qt_triggered()));  //第三方声明
 
     connect(ui->fontComboBox,SIGNAL(activated(QString)),this, SLOT(on_fontComboBox_currentFontChanged(QString))); //字体
     connect(ui->comboBox_fontSize,SIGNAL(activated(QString)),this, SLOT(on_comboBox_fontSize_activated(QString)));
@@ -320,6 +320,10 @@ void MainWindow::on_action_about_triggered()
     aboutDialog().exec();
 }
 
+void MainWindow::on_action_about_qt_triggered()
+{
+    QMessageBox::aboutQt(nullptr, "关于Qt");
+}
 
 void MainWindow::on_fontComboBox_currentFontChanged(QString fontFamily)
 {
