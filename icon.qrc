@@ -23,5 +23,6 @@
         <file>images/Underline.png</file>
         <file>images/Undo.png</file>
         <file>images/team-1.png</file>
+        <file>images/editor-icon-big.png</file>
     </qresource>
 </RCC>
