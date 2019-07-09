@@ -294,7 +294,9 @@ void MainWindow::on_action_rightAlign_triggered()
 
 void MainWindow::on_action_drawPoint_triggered()
 {
-
+    box * currentFile = activeSubwin();
+    QFont font = ui->fontComboBox->currentFont();
+    currentFile->setFont(font);
 }
 void MainWindow::on_action_drawLine_triggered()
 {

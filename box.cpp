@@ -55,7 +55,9 @@ void box::saveFileAs()
         QMessageBox::information(this, "提示", "文档保存成功");
         document()->setModified(false);
     }
-    document()->setModified(true);
+    else {
+        document()->setModified(true);
+    }
     file.close();    //关闭文档
 }
 
@@ -161,6 +163,11 @@ void box::setColor()
             this->setTextColor(color);
         }
     //QTextCharFormat fmt;
+}
+
+void box::setFont(QFont font)
+{
+    QTextFormat fmt;
 }
 
 //设置光标的选区，使格式作用于选区内的字符，若没有选区则作用于光标所在处的字符
