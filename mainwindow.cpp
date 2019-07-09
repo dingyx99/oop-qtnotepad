@@ -135,7 +135,7 @@ void MainWindow::on_action_new_triggered()
 void MainWindow::on_action_open_triggered()
 {
     QString filepath = QFileDialog::getOpenFileName(this, QString("open a file"),
-                                 QString("/"), "eXtensible Markup Language File(*.xml)");  //获取文件路径
+                                 QString("/"), "HTML 文档 (*.htm *.html);;所有文件 (*.*)");  //获取文件路径
     QFile file;
     file.setFileName(filepath);    //设置文件名称（路径）
     QFileInfo info(filepath);   //通过文档路径获取文档名称

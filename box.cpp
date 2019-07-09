@@ -42,27 +42,21 @@ void box::saveFileAs()
 {
     QString filepath = QFileDialog::getSaveFileName(this, "另存为",
                                    "未命名文档", "HTML 文档 (*.htm *.html);;所有文件 (*.*)");
-    if(filepath == "")
-    {
-        QMessageBox::warning(this, "warning", "文件无保存路径");
-        return;
-    }
-
     QFile file;
     file.setFileName(filepath);
     if(!file.open(QIODevice::WriteOnly)){     //打开文档
-        QMessageBox::warning(this, "waring", "没有成功打开文档");
-        return;
+        QMessageBox::warning(this, "waring", "文档未保存");
     }
     QTextStream out(&file);
     QString str = this->document()->toHtml();  //提取文档内容
     out << str;     //把文档内容写入新建文档
-    QMessageBox::information(this, "提示", "文档保存成功");
+    if(filepath!="")
+    {
+        QMessageBox::information(this, "提示", "文档保存成功");
+        document()->setModified(false);
+    }
+    document()->setModified(true);
     file.close();    //关闭文档
-
-//    QByteArray  strBytes = str.toUtf8();     第二种写入方式
-//    file.write(strBytes,strBytes.length());
-//    file.close();
 }
 
 void box::saveFile()
@@ -73,6 +67,7 @@ void box::saveFile()
     QString str = this->document()->toHtml();
     out << str;
     QMessageBox::information(this, "提示", "文档保存成功");
+    document()->setModified(false);
     file.close();
 }
 
@@ -191,19 +186,22 @@ void box::closeEvent(QCloseEvent *event)
 
     if(button==QMessageBox::Save)
     {
-        if(this->getFilePath()=="") saveFileAs();
-        else saveFile();
-        return;
+        if(this->getFilePath()=="") {
+            saveFileAs();
+            event->ignore();    //保存后保留页面
+        }
+        else {
+            saveFile();
+            event->ignore();
+        }
     }
     else if(button==QMessageBox::Cancel)
     {
         event->ignore(); // 忽略退出信号，程序继续进行
-        return;
     }
     else if(button==QMessageBox::Discard)
     {
         event->accept();
-        return;
     }
 }
 
