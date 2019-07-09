@@ -55,7 +55,9 @@ void box::saveFileAs()
         QMessageBox::information(this, "提示", "文档保存成功");
         document()->setModified(false);
     }
-    document()->setModified(true);
+    else {
+        document()->setModified(true);
+    }
     file.close();    //关闭文档
 }
 
