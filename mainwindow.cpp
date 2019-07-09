@@ -91,6 +91,8 @@ void MainWindow::setDisable()
         ui->action_drawPoint->setDisabled(true);
         ui->action_drawLine->setDisabled(true);
         ui->action_drawCircle->setDisabled(true);
+        ui->comboBox_fontSize->setDisabled(true);
+        ui->fontComboBox->setDisabled(true);
 }
 
 void MainWindow::setEnable()
@@ -117,6 +119,8 @@ void MainWindow::setEnable()
     ui->action_drawPoint->setEnabled(true);
     ui->action_drawLine->setEnabled(true);
     ui->action_drawCircle->setEnabled(true);
+    ui->comboBox_fontSize->setEnabled(true);
+    ui->fontComboBox->setEnabled(true);
 }
 
 void MainWindow::on_action_new_triggered()
