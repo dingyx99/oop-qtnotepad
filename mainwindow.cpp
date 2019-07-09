@@ -11,6 +11,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(ui->mdiArea);
+
+    //让对齐类按钮互斥
+    QActionGroup * alignmentGroup = new QActionGroup(this);
+    alignmentGroup->addAction(ui->action_leftAlign);
+    alignmentGroup->addAction(ui->action_center);
+    alignmentGroup->addAction(ui->action_rightAlign);
+    alignmentGroup->addAction(ui->action_justifyAlign);
+    ui->action_leftAlign->setChecked(true);
+
     connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered(bool)));   //新建
     connect(ui->action_open,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
     connect(ui->action_save,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
