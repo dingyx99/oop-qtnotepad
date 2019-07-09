@@ -294,7 +294,7 @@
     <string>新建</string>
    </property>
    <property name="toolTip">
-    <string>新建一个文档，并打开</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;新建(Ctrl+N)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;新建一个文档，并打开。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -312,7 +312,7 @@
     <string>打开</string>
    </property>
    <property name="toolTip">
-    <string>打开已有的文件，并进行编辑</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;打开(Ctrl+O)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;打开已有的文件，并进行编辑。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -330,7 +330,7 @@
     <string>保存</string>
    </property>
    <property name="toolTip">
-    <string>将正在编辑的文件进行保存</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;保存(Ctrl+S)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;将正在编辑的文件进行保存。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -348,7 +348,7 @@
     <string>另存为</string>
    </property>
    <property name="toolTip">
-    <string>将文件保存至其他地方</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;另存为(Ctrl+Shift+S)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;将文件保存至其他地方。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -366,7 +366,7 @@
     <string>打印</string>
    </property>
    <property name="toolTip">
-    <string>使用可用的打印机打印文档</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;打印(Ctrl+P)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;使用可用的打印机打印文档。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
@@ -384,7 +384,7 @@
     <string>打印预览</string>
    </property>
    <property name="toolTip">
-    <string>打印前对文档进行预览</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;打印预览(Ctrl+Shift+P)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;打印前对文档进行预览。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+P</string>
@@ -398,7 +398,7 @@
     <string>退出</string>
    </property>
    <property name="toolTip">
-    <string>退出程序</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;退出(Ctrl+Q)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;退出本程序。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -416,7 +416,7 @@
     <string>撤销</string>
    </property>
    <property name="toolTip">
-    <string>回退至上一步操作</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;撤销(Ctrl+Z)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;回退至上一步操作。需要注意的是，由于Qt限制，您只能按行撤销操作。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Z</string>
@@ -434,7 +434,7 @@
     <string>重做</string>
    </property>
    <property name="toolTip">
-    <string>重做上一步操作</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;重做(Ctrl+Shift+Z)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;重做上一步操作。由于Qt限制，您只能按行撤销操作。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Z</string>
@@ -455,7 +455,7 @@
     <string>复制</string>
    </property>
    <property name="toolTip">
-    <string>复制复制所选内容</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;复制(Ctrl+C)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;将所选内容复制到剪贴板，以便您可以将其粘贴到其他地方。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
@@ -476,7 +476,7 @@
     <string>剪切</string>
    </property>
    <property name="toolTip">
-    <string>剪切所选内容</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;剪切(Ctrl+X)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;删除所选内容并将其放到剪贴板上，以便您可以粘贴到其他地方。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
@@ -494,7 +494,7 @@
     <string>粘贴</string>
    </property>
    <property name="toolTip">
-    <string>从剪贴板中粘贴内容</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;粘贴(Ctrl+V)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;将剪贴板上的内容添加到文档。&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+V</string>
@@ -512,7 +512,7 @@
     <string>查找</string>
    </property>
    <property name="toolTip">
-    <string>在文档中查找文本或其他内容</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;查找(Ctrl+F)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;在文档中查找文本或其他内容。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -530,7 +530,7 @@
     <string>替换</string>
    </property>
    <property name="toolTip">
-    <string>搜索您想要更改的文本，将其替换成其他内容</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;替换(Ctrl+H)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;搜索您想要更改的文本，将其替换成其他内容。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+H</string>
@@ -551,7 +551,7 @@
     <string>加粗</string>
    </property>
    <property name="toolTip">
-    <string>将文本加粗</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;加粗(Ctrl+B)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;将文本加粗。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
@@ -572,7 +572,7 @@
     <string>倾斜</string>
    </property>
    <property name="toolTip">
-    <string>将文字变为斜体</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;倾斜(Ctrl+I)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;将文字变为斜体。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
@@ -593,7 +593,7 @@
     <string>下划线</string>
    </property>
    <property name="toolTip">
-    <string>为文字添加下划线</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;下划线(Ctrl+U)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;为文字添加下划线。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+U</string>
@@ -738,6 +738,9 @@
    <property name="text">
     <string>关于</string>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;关于&lt;/span&gt;&lt;/p&gt;&lt;p&gt;关于本项目。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
    </property>
@@ -745,6 +748,9 @@
   <action name="action_about3rdParty">
    <property name="text">
     <string>第三方组件声明</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;第三方组件声明&lt;/span&gt;&lt;/p&gt;&lt;p&gt;关于项目中使用的第三方库声明。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutQtRole</enum>
