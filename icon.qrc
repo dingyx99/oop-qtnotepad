@@ -24,5 +24,8 @@
         <file>images/Undo.png</file>
         <file>images/team-1.png</file>
         <file>images/editor-icon-big.png</file>
+        <file>images/svg/dot.svg</file>
+        <file>images/svg/circle.svg</file>
+        <file>images/svg/line.svg</file>
     </qresource>
 </RCC>

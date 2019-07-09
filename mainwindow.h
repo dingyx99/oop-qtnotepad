@@ -13,6 +13,7 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QStringList>
+#include <QTextImageFormat>
 #include "aboutdialog.h"
 #include "finddialog.h"
 #include "replacedialog.h"

@@ -24,21 +24,20 @@ MainWindow::MainWindow(QWidget *parent) :
     alignmentGroup->addAction(ui->action_justifyAlign);
     ui->action_leftAlign->setChecked(true);
 
-    connect(ui->action_new,SIGNAL(clicked(bool)), this, SLOT(on_action_new_triggered(bool)));   //新建
-    connect(ui->action_open,SIGNAL(clicked(bool)), this, SLOT(on_action_open_triggered()));   //打开
-    connect(ui->action_save,SIGNAL(clicked(bool)), this, SLOT(on_action_save_triggered()));    //保存
-    connect(ui->action_saveAs,SIGNAL(clicked(bool)), this, SLOT(on_action_saveAs_triggered()));   //另存为
-    connect(ui->action_print,SIGNAL(clicked(bool)), this, SLOT(on_action_print_triggered()));   //打印
-    connect(ui->action_printView,SIGNAL(clicked(bool)), this, SLOT(on_action_printView_triggered()));  //打印预览
-    connect(ui->action_exit,SIGNAL(clicked(bool)), this, SLOT(on_action_exit_triggered()));   //退出
+    connect(ui->action_new,SIGNAL(toggled()), this, SLOT(on_action_new_triggered(bool)));   //新建
+    connect(ui->action_open,SIGNAL(toggled()), this, SLOT(on_action_open_triggered()));   //打开
+    connect(ui->action_save,SIGNAL(toggled()), this, SLOT(on_action_save_triggered()));    //保存
+    connect(ui->action_saveAs,SIGNAL(toggled()), this, SLOT(on_action_saveAs_triggered()));   //另存为
+    connect(ui->action_print,SIGNAL(toggled()), this, SLOT(on_action_print_triggered()));   //打印
+    connect(ui->action_printView,SIGNAL(toggled()), this, SLOT(on_action_printView_triggered()));  //打印预览
+    connect(ui->action_exit,SIGNAL(toggled()), this, SLOT(on_action_exit_triggered()));   //退出
 
-    connect(ui->action_undo,SIGNAL(clicked(bool)), this, SLOT(on_action_undo_triggered()));  //撤销
-    connect(ui->action_redo,SIGNAL(clicked(bool)), this, SLOT(on_action_redo_triggered()));   //重做
-    connect(ui->action_copy,SIGNAL(clicked(bool)), this, SLOT(on_action_copy_triggered()));   //复制
-    connect(ui->action_cut,SIGNAL(clicked(bool)), this, SLOT(on_action_cut_triggered()));     //剪切
-    connect(ui->action_paste,SIGNAL(clicked(bool)), this, SLOT(on_action_paste_triggered()));    //粘贴
-    connect(ui->action_find,SIGNAL(clicked(bool)), this, SLOT(on_action_find_triggered()));   //查找
-    connect(ui->action_replace,SIGNAL(clicked(bool)), this, SLOT(on_action_replace_triggered));   //替换
+    connect(ui->action_undo,SIGNAL(toggled()), this, SLOT(on_action_undo_triggered()));  //撤销
+    connect(ui->action_redo,SIGNAL(toggled()), this, SLOT(on_action_copy_triggered()));   //复制
+    connect(ui->action_cut,SIGNAL(toggled()), this, SLOT(on_action_cut_triggered()));     //剪切
+    connect(ui->action_paste,SIGNAL(toggled()), this, SLOT(on_action_paste_triggered()));    //粘贴
+    connect(ui->action_find,SIGNAL(toggled()), this, SLOT(on_action_find_triggered()));   //查找
+    connect(ui->action_replace,SIGNAL(toggled()), this, SLOT(on_action_replace_triggered));   //替换
 
     connect(ui->action_bold,SIGNAL(toggled()), this, SLOT(on_action_bold_triggered()));    //加粗
     connect(ui->action_italic,SIGNAL(toggled()), this, SLOT(on_action_italic_triggered()));    //倾斜
@@ -49,12 +48,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_rightAlign,SIGNAL(toggled()), this, SLOT(setAlign(3)));  //右对齐
     connect(ui->action_justifyAlign,SIGNAL(toggled()), this, SLOT(setAlign(4)));  //中心对齐
 
-    connect(ui->action_drawPoint,SIGNAL(clicked(bool)), this, SLOT(on_action_drawPoint_triggered()));  //绘制点
-    connect(ui->action_drawLine,SIGNAL(clicked(bool)), this, SLOT(on_action_drawLine_triggered()));  //绘制线
-    connect(ui->action_drawCircle,SIGNAL(clicked(bool)), this, SLOT(on_action_drawCircle_triggered()));  //绘制圆
+    connect(ui->action_drawPoint,SIGNAL(toggled()), this, SLOT(on_action_drawPoint_triggered()));  //绘制点
+    connect(ui->action_drawLine,SIGNAL(toggled()), this, SLOT(on_action_drawLine_triggered()));  //绘制线
+    connect(ui->action_drawCircle,SIGNAL(toggled()), this, SLOT(on_action_drawCircle_triggered()));  //绘制圆
 
-    connect(ui->action_about,SIGNAL(clicked(bool)), this, SLOT(on_action_about_triggered()));  //关于
-    connect(ui->action_about3rdParty,SIGNAL(clicked(bool)), this, SLOT(aboutQt()));  //第三方声明
+    connect(ui->action_about,SIGNAL(toggled()), this, SLOT(on_action_about_triggered()));  //关于
+    connect(ui->action_about3rdParty,SIGNAL(toggled()), this, SLOT(aboutQt()));  //第三方声明
 
     connect(ui->fontComboBox,SIGNAL(activated(QString)),this, SLOT(on_fontComboBox_currentFontChanged(QString))); //字体
     connect(ui->comboBox_fontSize,SIGNAL(activated(QString)),this, SLOT(on_comboBox_fontSize_activated(QString)));
@@ -301,24 +300,25 @@ void MainWindow::on_action_rightAlign_triggered()
 
 void MainWindow::on_action_drawPoint_triggered()
 {
-
+    box * currentFile = activeSubwin();
+    currentFile->append("<img src=\":/new/images/svg/dot.svg\"></img>");
 }
 void MainWindow::on_action_drawLine_triggered()
 {
-
+    box * currentFile = activeSubwin();
+    currentFile->append("<img src=\":/new/images/svg/line.svg\"></img>");
 }
 
 void MainWindow::on_action_drawCircle_triggered()
 {
-
+    box * currentFile = activeSubwin();
+    currentFile->append("<img src=\":/new/images/svg/circle.svg\"></img>");
 }
 
 void MainWindow::on_action_about_triggered()
 {
     aboutDialog().exec();
 }
-
-
 
 
 void MainWindow::on_fontComboBox_currentFontChanged(QString fontFamily)
