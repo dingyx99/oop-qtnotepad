@@ -8,16 +8,21 @@ box::box(QWidget *parent) :
     ui(new Ui::box)
 {
     ui->setupUi(this);
-    //connect(this->close(),SIGNAL(clicked(bool)),this,SLOT(box::test()));
     //"查找"窗口
     findDlg = new QDialog(this);
     findDlg->setWindowTitle("查找");
     findLineEdit = new QLineEdit(findDlg);
     QPushButton *findBtn = new QPushButton("上一个", findDlg);
     QVBoxLayout *layout = new QVBoxLayout(findDlg);
+
+
     layout->addWidget(findLineEdit);
     layout->addWidget(findBtn);
     connect(findBtn, SIGNAL(clicked()), this, SLOT(on_action_findDlg_triggered()));
+
+    //替换窗口
+    replaceDlg = new ReplaceDialog;
+    connect(replaceDlg, SIGNAL(parentReceive()), SLOT(onreplace()));
 }
 
 box::~box()
@@ -248,9 +253,31 @@ void box::on_action_findDlg_triggered()
     }
 }
 
+void box::onreplace()
+{
+    QString target = replaceDlg->getEditText();
+    QString to = replaceDlg->getReplaceEdit();
+    this->find(target, QTextDocument::FindBackward);
+    if(this->textCursor().selectedText()==target)
+    {
+//        qDebug() << "target is:   " << target;
+//        qDebug() << "seleected is:  " <<  this->textCursor().selectedText();
+        this->textCursor().insertText(to);
+    }
+    else {
+        QMessageBox::information(this, "提示", "替换完成");
+    }
+}
+
+
 
 QDialog* box::getFindDlg()
 {
     return findDlg;
+}
+
+ReplaceDialog* box::getReplaceDlg()
+{
+    return replaceDlg;
 }
 

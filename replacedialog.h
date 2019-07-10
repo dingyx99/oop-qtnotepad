@@ -8,6 +8,7 @@ class ReplaceDialog : public FindDialog
     Q_OBJECT
 public:
     ReplaceDialog(QWidget* parent = nullptr, QPlainTextEdit* ptnullptrxt = nullptr);
+    QString getReplaceEdit();
 
 protected:
 
@@ -19,6 +20,10 @@ protected:
 protected slots:
     void onReplace();
     void onRepalceAll();
+    void sentToParent();
+
+signals:
+    void parentReceive();
 
 };
 

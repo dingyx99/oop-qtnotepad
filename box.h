@@ -17,6 +17,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <replacedialog.h>
+#include <QDebug>
 
 namespace Ui {
 class box;
@@ -52,10 +54,12 @@ public:
     void maybeSave();
     void closeEvent(QCloseEvent *event);
     QDialog* getFindDlg();
+    ReplaceDialog *getReplaceDlg();
 
 
 private slots:
     void on_action_findDlg_triggered();
+    void onreplace();
 
 
 private:
@@ -66,6 +70,8 @@ private:
     QDialog *findDlg;
     QLineEdit *findLineEdit;
     QPushButton *findBtn;
+
+    ReplaceDialog *replaceDlg;
 
     void mergeFormat(QTextCharFormat format);
 

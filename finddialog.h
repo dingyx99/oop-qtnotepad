@@ -25,6 +25,7 @@ public:
     bool event(QEvent *event);
     void setPlainTextEdit(QPlainTextEdit *ptext);
     QPlainTextEdit* getPlainTextEdit();
+    QString getEditText();
 
 protected slots:
     void onFind();

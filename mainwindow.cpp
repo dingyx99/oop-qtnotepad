@@ -261,7 +261,8 @@ void MainWindow::on_action_find_triggered()
 
 void MainWindow::on_action_replace_triggered()
 {
-
+    box *currentFile = activeSubwin();
+    currentFile->getReplaceDlg()->show();
 }
 
 void MainWindow::on_action_bold_triggered()
@@ -351,8 +352,3 @@ void MainWindow::on_comboBox_fontSize_activated(QString fontsize)
     box * currentFile = activeSubwin();
     currentFile->setSize(fontsize.toDouble());
 }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 5065ef6aa02d30895fc3cd63c75497dc4482a6d4

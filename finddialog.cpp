@@ -92,3 +92,8 @@ void FindDialog::onCancel()
 {
     close();
 }
+
+QString FindDialog::getEditText()
+{
+    return m_edit.text();
+}

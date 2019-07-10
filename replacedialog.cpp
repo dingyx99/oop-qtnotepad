@@ -24,8 +24,11 @@ ReplaceDialog::ReplaceDialog(QWidget* parent, QPlainTextEdit* ptext)
 
     setWindowTitle("替换");
 
-    connect(&m_replacebutton, SIGNAL(clicked()), this, SLOT(onReplace()));
-    connect(&m_replaceallbutton, SIGNAL(clicked()), this, SLOT(onRepalceAll()));
+    //connect(&m_replacebutton, SIGNAL(clicked()), this, SLOT(onReplace()));
+    //connect(&m_replaceallbutton, SIGNAL(clicked()), this, SLOT(onRepalceAll()));
+
+    //分割线
+    connect(&m_replacebutton, SIGNAL(clicked()), this, SLOT(sentToParent()));
 }
 
 void ReplaceDialog::onReplace()
@@ -54,4 +57,14 @@ void ReplaceDialog::onRepalceAll()
         m_textedit->clear();
         m_textedit->insertPlainText(text);
     }
+}
+
+QString ReplaceDialog::getReplaceEdit()
+{
+    return m_replaceedit.text();
+}
+
+void ReplaceDialog::sentToParent()
+{
+    emit parentReceive();
 }
