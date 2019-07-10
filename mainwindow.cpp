@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->comboBox_fontSize,SIGNAL(activated(QString)),this, SLOT(on_comboBox_fontSize_activated(QString)));
 
     setDisable();
+    connect(ui->mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(updateActions()));
 }
 
 MainWindow::~MainWindow()
@@ -118,32 +119,37 @@ void MainWindow::setDisable()
         ui->fontComboBox->setDisabled(true);
 }
 
-void MainWindow::setEnable()
+
+void MainWindow::updateActions()
 {
-    ui->action_save->setEnabled(true);
-    ui->action_saveAs->setEnabled(true);
-    ui->action_print->setEnabled(true);
-    ui->action_printView->setEnabled(true);
-    ui->action_undo->setEnabled(true);
-    ui->action_redo->setEnabled(true);
-    ui->action_copy->setEnabled(true);
-    ui->action_cut->setEnabled(true);
-    ui->action_paste->setEnabled(true);
-    ui->action_find->setEnabled(true);
-    ui->action_replace->setEnabled(true);
-    ui->action_bold->setEnabled(true);
-    ui->action_italic->setEnabled(true);
-    ui->action_underline->setEnabled(true);
-    ui->action_color->setEnabled(true);
-    ui->action_leftAlign->setEnabled(true);
-    ui->action_center->setEnabled(true);
-    ui->action_rightAlign->setEnabled(true);
-    ui->action_justifyAlign->setEnabled(true);
-    ui->action_drawPoint->setEnabled(true);
-    ui->action_drawLine->setEnabled(true);
-    ui->action_drawCircle->setEnabled(true);
-    ui->comboBox_fontSize->setEnabled(true);
-    ui->fontComboBox->setEnabled(true);
+    bool hasChild = (activeSubwin() != nullptr);
+    ui->action_save->setEnabled(hasChild);
+    ui->action_saveAs->setEnabled(hasChild);
+    ui->action_print->setEnabled(hasChild);
+    ui->action_printView->setEnabled(hasChild);
+    ui->action_paste->setEnabled(hasChild);
+    ui->action_find->setEnabled(hasChild);
+    ui->action_replace->setEnabled(hasChild);
+    ui->action_bold->setEnabled(hasChild);
+    ui->action_italic->setEnabled(hasChild);
+    ui->action_underline->setEnabled(hasChild);
+    ui->action_color->setEnabled(hasChild);
+    ui->action_leftAlign->setEnabled(hasChild);
+    ui->action_center->setEnabled(hasChild);
+    ui->action_rightAlign->setEnabled(hasChild);
+    ui->action_justifyAlign->setEnabled(hasChild);
+    ui->action_drawPoint->setEnabled(hasChild);
+    ui->action_drawLine->setEnabled(hasChild);
+    ui->action_drawCircle->setEnabled(hasChild);
+    ui->comboBox_fontSize->setEnabled(hasChild);
+    ui->fontComboBox->setEnabled(hasChild);
+
+    ui->action_cut->setEnabled(hasChild);
+    ui->action_copy->setEnabled(hasChild);
+
+    ui->action_undo->setEnabled(hasChild);
+    ui->action_redo->setEnabled(hasChild);
+
 }
 
 void MainWindow::on_action_new_triggered()
@@ -151,7 +157,6 @@ void MainWindow::on_action_new_triggered()
     box *currentFile = new box;     //新建窗口
     ui->mdiArea->addSubWindow(currentFile);     //将窗口放在容器内
     currentFile->creatFile();     //设置新建窗口的名称，依次增加
-    setEnable();
     currentFile->show();
 }
 
@@ -170,7 +175,7 @@ void MainWindow::on_action_open_triggered()
     }   //以读和写的方式打开文件,若未打开任何文档，则不新建窗口
 
     QByteArray text = file.readAll();     //读文档：ALL
-    QTextCodec *codec = QTextCodec::codecForName("GBK");    //将读取的文档内容编码格式转为GBK,能够显示中文
+    QTextCodec *codec = QTextCodec::codecForName("UTF-8");    //使用UTF-8提高兼容性，不易出现乱码
     QString text_utf = codec->toUnicode(text);
 
     box *currentFile = new box;      //新建窗口并将文档写入
@@ -178,7 +183,6 @@ void MainWindow::on_action_open_triggered()
     ui->mdiArea->addSubWindow(currentFile);     //将窗口放在容器内
     currentFile->setWindowTitle(filename);     //设置"窗口名"为当前打开的"文件名"
 
-    setEnable();
     currentFile->setFilePath(filepath);    //传入打开的文件路径
     currentFile->show();
 }
@@ -196,20 +200,20 @@ void MainWindow::on_action_save_triggered()
 
 void MainWindow::on_action_saveAs_triggered()
 {
-     box *currentFile = activeSubwin();
-     currentFile->saveFileAs();
+    box *currentFile = activeSubwin();
+    currentFile->saveFileAs();
 }
 
 void MainWindow::on_action_print_triggered()
 {
     box * currentFile = activeSubwin();
-     currentFile->printFile();
+    currentFile -> printFile ();
 }
 
 void MainWindow::on_action_printView_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile->printFileView();
+    currentFile -> printFileView ();
 }
 
 void MainWindow::on_action_exit_triggered()
@@ -218,15 +222,15 @@ void MainWindow::on_action_exit_triggered()
 }
 
 void MainWindow::on_action_undo_triggered()
-{
+{ 
     box * currentFile = activeSubwin();
-    currentFile -> undo();
+    currentFile->undo();
 }
 
 void MainWindow::on_action_redo_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile -> redo();
+    currentFile->redo();
 }
 
 void MainWindow::on_action_copy_triggered()
@@ -348,4 +352,7 @@ void MainWindow::on_comboBox_fontSize_activated(QString fontsize)
     currentFile->setSize(fontsize.toDouble());
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5065ef6aa02d30895fc3cd63c75497dc4482a6d4
