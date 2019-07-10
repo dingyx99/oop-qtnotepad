@@ -13,8 +13,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(ui->mdiArea);
 
-//    QStringList list = (QStringList() << "1" << "2" << "3");
-//    ui->comboBox_fontSize->addItems(list);
+    //"查找"窗口
+    findDlg = new QDialog(this);
+    findDlg->setWindowTitle("查找");
+    findLineEdit = new QLineEdit(findDlg);
+    QPushButton *findBtn = new QPushButton("下一个", findDlg);
+    QVBoxLayout *layout = new QVBoxLayout(findDlg);
+    layout->addWidget(findLineEdit);
+    layout->addWidget(findBtn);
+    connect(findBtn , SIGNAL(clicked(bool)), findDlg, SLOT(findNext()));
+
 
     //让对齐类按钮互斥
     QActionGroup * alignmentGroup = new QActionGroup(this);
@@ -241,7 +249,7 @@ void MainWindow::on_action_paste_triggered()
 
 void MainWindow::on_action_find_triggered()
 {
-
+    findDlg->show();
 }
 
 void MainWindow::on_action_replace_triggered()
@@ -336,3 +344,22 @@ void MainWindow::on_comboBox_fontSize_activated(QString fontsize)
     box * currentFile = activeSubwin();
     currentFile->setSize(fontsize.toDouble());
 }
+
+void MainWindow::findNext()
+{
+    box * current = activeSubwin();
+    if(current==nullptr) qDebug() << "false null";
+    QString str = findLineEdit->text();
+    qDebug() << str;
+    bool isFind = current->find(str, QTextDocument::FindBackward);
+
+    QPalette palette = current->palette();
+    palette.setColor(QPalette::Highlight,palette.color(QPalette::Active,QPalette::Highlight));
+    current->setPalette(palette);
+
+    if(isFind==false)
+    {
+        QMessageBox::warning(this, "提示", "未找到");
+    }
+}
+

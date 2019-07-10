@@ -17,6 +17,9 @@
 #include "aboutdialog.h"
 #include "finddialog.h"
 #include "replacedialog.h"
+#include <QDialog>
+#include <QLineEdit>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -95,10 +98,14 @@ private slots:
 
     void on_comboBox_fontSize_activated(QString fontsize);
 
+    //void findNext();
+
 private:
     Ui::MainWindow *ui;
     QSharedPointer<FindDialog> FindDia;
     QSharedPointer<ReplaceDialog> ReplaceDia;
+    QDialog *findDlg;
+    QLineEdit *findLineEdit;
 };
 
 #endif // MAINWINDOW_H
