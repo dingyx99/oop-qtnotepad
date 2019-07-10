@@ -13,15 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(ui->mdiArea);
 
-    //"查找"窗口
-    findDlg = new QDialog(this);
-    findDlg->setWindowTitle("查找");
-    findLineEdit = new QLineEdit(findDlg);
-    QPushButton *findBtn = new QPushButton("下一个", findDlg);
-    QVBoxLayout *layout = new QVBoxLayout(findDlg);
-    layout->addWidget(findLineEdit);
-    layout->addWidget(findBtn);
-    connect(findBtn , SIGNAL(clicked(bool)), findDlg, SLOT(findNext()));
+//    //"查找"窗口
+//    findDlg = new QDialog(this);
+//    findDlg->setWindowTitle("查找");
+//    findLineEdit = new QLineEdit(findDlg);
+//    QPushButton *findBtn = new QPushButton("下一个", findDlg);
+//    QVBoxLayout *layout = new QVBoxLayout(findDlg);
+//    layout->addWidget(findLineEdit);
+//    layout->addWidget(findBtn);
+//    connect(findBtn , SIGNAL(clicked(bool)), findDlg, SLOT(box::findNext()));
 
 
     //让对齐类按钮互斥
@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     alignmentGroup->addAction(ui->action_justifyAlign);
     ui->action_leftAlign->setChecked(true);
 
-    connect(ui->action_new,SIGNAL(toggled()), this, SLOT(on_action_new_triggered(bool)));   //新建
+    connect(ui->action_new,SIGNAL(toggled()), this, SLOT(on_action_new_triggered()));   //新建
     connect(ui->action_open,SIGNAL(toggled()), this, SLOT(on_action_open_triggered()));   //打开
     connect(ui->action_save,SIGNAL(toggled()), this, SLOT(on_action_save_triggered()));    //保存
     connect(ui->action_saveAs,SIGNAL(toggled()), this, SLOT(on_action_saveAs_triggered()));   //另存为
@@ -249,7 +249,10 @@ void MainWindow::on_action_paste_triggered()
 
 void MainWindow::on_action_find_triggered()
 {
-    findDlg->show();
+    box *currentFile = activeSubwin();
+    QDialog *dlg;
+    dlg = currentFile->getFindDlg();
+    dlg->show();
 }
 
 void MainWindow::on_action_replace_triggered()
@@ -345,21 +348,4 @@ void MainWindow::on_comboBox_fontSize_activated(QString fontsize)
     currentFile->setSize(fontsize.toDouble());
 }
 
-void MainWindow::findNext()
-{
-    box * current = activeSubwin();
-    if(current==nullptr) qDebug() << "false null";
-    QString str = findLineEdit->text();
-    qDebug() << str;
-    bool isFind = current->find(str, QTextDocument::FindBackward);
-
-    QPalette palette = current->palette();
-    palette.setColor(QPalette::Highlight,palette.color(QPalette::Active,QPalette::Highlight));
-    current->setPalette(palette);
-
-    if(isFind==false)
-    {
-        QMessageBox::warning(this, "提示", "未找到");
-    }
-}
 

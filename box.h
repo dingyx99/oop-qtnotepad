@@ -13,6 +13,10 @@
 #include <QColorDialog>
 #include <QCloseEvent>
 #include <QTextCharFormat>
+#include <QDialog>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 namespace Ui {
 class box;
@@ -47,7 +51,11 @@ public:
     void setSize(double);
     void maybeSave();
     void closeEvent(QCloseEvent *event);
+    QDialog* getFindDlg();
 
+
+private slots:
+    void on_action_findDlg_triggered();
 
 
 private:
@@ -55,6 +63,10 @@ private:
 
     QString filePath;  //保存打开文档的路径
     QString fileContent;   //剪切板
+    QDialog *findDlg;
+    QLineEdit *findLineEdit;
+    QPushButton *findBtn;
+
     void mergeFormat(QTextCharFormat format);
 
 };

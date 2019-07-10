@@ -9,6 +9,15 @@ box::box(QWidget *parent) :
 {
     ui->setupUi(this);
     //connect(this->close(),SIGNAL(clicked(bool)),this,SLOT(box::test()));
+    //"查找"窗口
+    findDlg = new QDialog(this);
+    findDlg->setWindowTitle("查找");
+    findLineEdit = new QLineEdit(findDlg);
+    QPushButton *findBtn = new QPushButton("上一个", findDlg);
+    QVBoxLayout *layout = new QVBoxLayout(findDlg);
+    layout->addWidget(findLineEdit);
+    layout->addWidget(findBtn);
+    connect(findBtn, SIGNAL(clicked()), this, SLOT(on_action_findDlg_triggered()));
 }
 
 box::~box()
@@ -221,5 +230,27 @@ void box::closeEvent(QCloseEvent *event)
     {
         event->accept();
     }
+}
+
+void box::on_action_findDlg_triggered()
+{
+    box * current = this;
+    QString str = findLineEdit->text();
+    bool isFind = current->find(str, QTextDocument::FindBackward);   //从后向前查找
+
+    QPalette palette = current->palette();    //高亮显示
+    palette.setColor(QPalette::Highlight,palette.color(QPalette::Active,QPalette::Highlight));
+    current->setPalette(palette);
+
+    if(isFind==false)
+    {
+        QMessageBox::warning(this, "提示", "未找到");
+    }
+}
+
+
+QDialog* box::getFindDlg()
+{
+    return findDlg;
 }
 
