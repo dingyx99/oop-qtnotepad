@@ -22,6 +22,7 @@ namespace Ui {
 class MainWindow;
 }
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -37,7 +38,7 @@ private slots:
 
     void setDisable();
 
-    void setEnable();
+    void updateActions();
 
     void on_action_open_triggered();
 

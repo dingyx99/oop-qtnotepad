@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->comboBox_fontSize,SIGNAL(activated(QString)),this, SLOT(on_comboBox_fontSize_activated(QString)));
 
     setDisable();
+    connect(ui->mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(updateActions()));
 }
 
 MainWindow::~MainWindow()
@@ -110,32 +111,37 @@ void MainWindow::setDisable()
         ui->fontComboBox->setDisabled(true);
 }
 
-void MainWindow::setEnable()
+
+void MainWindow::updateActions()
 {
-    ui->action_save->setEnabled(true);
-    ui->action_saveAs->setEnabled(true);
-    ui->action_print->setEnabled(true);
-    ui->action_printView->setEnabled(true);
-    ui->action_undo->setEnabled(true);
-    ui->action_redo->setEnabled(true);
-    ui->action_copy->setEnabled(true);
-    ui->action_cut->setEnabled(true);
-    ui->action_paste->setEnabled(true);
-    ui->action_find->setEnabled(true);
-    ui->action_replace->setEnabled(true);
-    ui->action_bold->setEnabled(true);
-    ui->action_italic->setEnabled(true);
-    ui->action_underline->setEnabled(true);
-    ui->action_color->setEnabled(true);
-    ui->action_leftAlign->setEnabled(true);
-    ui->action_center->setEnabled(true);
-    ui->action_rightAlign->setEnabled(true);
-    ui->action_justifyAlign->setEnabled(true);
-    ui->action_drawPoint->setEnabled(true);
-    ui->action_drawLine->setEnabled(true);
-    ui->action_drawCircle->setEnabled(true);
-    ui->comboBox_fontSize->setEnabled(true);
-    ui->fontComboBox->setEnabled(true);
+    bool hasChild = (activeSubwin() != nullptr);
+    ui->action_save->setEnabled(hasChild);
+    ui->action_saveAs->setEnabled(hasChild);
+    ui->action_print->setEnabled(hasChild);
+    ui->action_printView->setEnabled(hasChild);
+    ui->action_paste->setEnabled(hasChild);
+    ui->action_find->setEnabled(hasChild);
+    ui->action_replace->setEnabled(hasChild);
+    ui->action_bold->setEnabled(hasChild);
+    ui->action_italic->setEnabled(hasChild);
+    ui->action_underline->setEnabled(hasChild);
+    ui->action_color->setEnabled(hasChild);
+    ui->action_leftAlign->setEnabled(hasChild);
+    ui->action_center->setEnabled(hasChild);
+    ui->action_rightAlign->setEnabled(hasChild);
+    ui->action_justifyAlign->setEnabled(hasChild);
+    ui->action_drawPoint->setEnabled(hasChild);
+    ui->action_drawLine->setEnabled(hasChild);
+    ui->action_drawCircle->setEnabled(hasChild);
+    ui->comboBox_fontSize->setEnabled(hasChild);
+    ui->fontComboBox->setEnabled(hasChild);
+
+    ui->action_cut->setEnabled(hasChild);
+    ui->action_copy->setEnabled(hasChild);
+
+    ui->action_undo->setEnabled(hasChild);
+    ui->action_redo->setEnabled(hasChild);
+
 }
 
 void MainWindow::on_action_new_triggered()
@@ -143,7 +149,6 @@ void MainWindow::on_action_new_triggered()
     box *currentFile = new box;     //新建窗口
     ui->mdiArea->addSubWindow(currentFile);     //将窗口放在容器内
     currentFile->creatFile();     //设置新建窗口的名称，依次增加
-    setEnable();
     currentFile->show();
 }
 
@@ -170,7 +175,6 @@ void MainWindow::on_action_open_triggered()
     ui->mdiArea->addSubWindow(currentFile);     //将窗口放在容器内
     currentFile->setWindowTitle(filename);     //设置"窗口名"为当前打开的"文件名"
 
-    setEnable();
     currentFile->setFilePath(filepath);    //传入打开的文件路径
     currentFile->show();
 }
@@ -195,13 +199,13 @@ void MainWindow::on_action_saveAs_triggered()
 void MainWindow::on_action_print_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile != nullptr ? currentFile -> printFile () : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
+    currentFile -> printFile ();
 }
 
 void MainWindow::on_action_printView_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile != nullptr ? currentFile -> printFileView () : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
+    currentFile -> printFileView ();
 }
 
 void MainWindow::on_action_exit_triggered()
@@ -210,33 +214,33 @@ void MainWindow::on_action_exit_triggered()
 }
 
 void MainWindow::on_action_undo_triggered()
-{
+{ 
     box * currentFile = activeSubwin();
-    currentFile -> isUndoAvailable() ? currentFile -> undo() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
+    currentFile->undo();
 }
 
 void MainWindow::on_action_redo_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile -> isRedoAvailable() ? currentFile -> redo() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
+    currentFile->redo();
 }
 
 void MainWindow::on_action_copy_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile != nullptr ? currentFile->copyText() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
+    currentFile->copyText();
 }
 
 void MainWindow::on_action_cut_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile != nullptr ? currentFile->cutText() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
+    currentFile->cutText();
 }
 
 void MainWindow::on_action_paste_triggered()
 {
     box * currentFile = activeSubwin();
-    currentFile != nullptr ? currentFile->pasteText() : QMessageBox::critical(nullptr, "错误", "无文件打开，此操作目前不可用。", QMessageBox::Yes);
+    currentFile->pasteText();
 }
 
 void MainWindow::on_action_find_triggered()
@@ -336,3 +340,4 @@ void MainWindow::on_comboBox_fontSize_activated(QString fontsize)
     box * currentFile = activeSubwin();
     currentFile->setSize(fontsize.toDouble());
 }
+
