@@ -175,7 +175,7 @@ void MainWindow::on_action_open_triggered()
     }   //以读和写的方式打开文件,若未打开任何文档，则不新建窗口
 
     QByteArray text = file.readAll();     //读文档：ALL
-    QTextCodec *codec = QTextCodec::codecForName("UTF-8");    //使用UTF-8提高兼容性，不易出现乱码
+    QTextCodec *codec = QTextCodec::codecForName("GBK");    //使用UTF-8提高兼容性，不易出现乱码
     QString text_utf = codec->toUnicode(text);
 
     box *currentFile = new box;      //新建窗口并将文档写入

@@ -23,6 +23,7 @@ box::box(QWidget *parent) :
     //替换窗口
     replaceDlg = new ReplaceDialog;
     connect(replaceDlg, SIGNAL(parentReceive()), SLOT(onreplace()));
+    connect(replaceDlg, SIGNAL(parentReceive_next()), SLOT(onreplace_next()));
 }
 
 box::~box()
@@ -263,9 +264,28 @@ void box::onreplace()
 //        qDebug() << "target is:   " << target;
 //        qDebug() << "seleected is:  " <<  this->textCursor().selectedText();
         this->textCursor().insertText(to);
+        QPalette palette = this->palette();    //高亮显示
+        palette.setColor(QPalette::Highlight,palette.color(QPalette::Active,QPalette::Highlight));
+        this->setPalette(palette);
     }
     else {
         QMessageBox::information(this, "提示", "替换完成");
+    }
+}
+
+void box::onreplace_next()
+{
+    box * current = this;
+    QString target = replaceDlg->getEditText();
+    bool isFind = current->find(target, QTextDocument::FindBackward);   //从后向前查找
+
+    QPalette palette = current->palette();    //高亮显示
+    palette.setColor(QPalette::Highlight,palette.color(QPalette::Active,QPalette::Highlight));
+    current->setPalette(palette);
+
+    if(isFind==false)
+    {
+        QMessageBox::warning(this, "提示", "未找到");
     }
 }
 

@@ -21,9 +21,11 @@ protected slots:
     void onReplace();
     void onRepalceAll();
     void sentToParent();
+    void sentToParent_next();
 
 signals:
     void parentReceive();
+    void parentReceive_next();
 
 };
 

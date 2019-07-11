@@ -60,6 +60,7 @@ public:
 private slots:
     void on_action_findDlg_triggered();
     void onreplace();
+    void onreplace_next();
 
 
 private:
