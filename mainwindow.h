@@ -103,8 +103,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSharedPointer<FindDialog> FindDia;
-    QSharedPointer<ReplaceDialog> ReplaceDia;
     QDialog *findDlg;
     QLineEdit *findLineEdit;
 };
